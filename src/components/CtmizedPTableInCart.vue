@@ -167,7 +167,10 @@
 
 <script>
 let routerport = "https://localhost:7098/";
+import { defineEmits } from 'vue';
+
 export default {
+  emits: ['sendCPrice'],
   data() {
     return {
       //先在此宣告要存放的變數位置
@@ -204,6 +207,7 @@ export default {
         let amount = this.products[i].Info.amount;
         sum += unitP * amount;
       }
+      this.$emit("sendCPrice",sum);
       return sum;
     },
     async SaveToCombineDetail() {

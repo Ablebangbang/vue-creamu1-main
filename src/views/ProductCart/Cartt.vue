@@ -95,33 +95,21 @@
     <v-divider :thickness="3"></v-divider>
     <!-- 商品總價與次要選項 -->
 
-    <CtmizedPTable></CtmizedPTable>
+    <CtmizedPTable @sendCPrice = "childHandler"></CtmizedPTable>
 
-    <!-- 下方按鈕取消與確認按鈕 -->
 
-    <div class="container d-flex mb-3">
-      <button class="btn btn-primary p-2" style="font-size: 36px">取消</button>
-      <button
-        class="btn btn-success ms-auto p-2"
-        style="font-size: 36px"
-        @click="comfirmPurchase"
-      >
-        確認結帳
-      </button>
-    </div>
     <v-card class="mx-auto" variant="outlined">
       <v-card-item>
         <div>
-          <div class="text-overline text-right mb-1">OVERLINE</div>
-          <div class="text-h6 text-right mb-1">Headline</div>
-          <div class="text-caption text-right">
-            Greyhound divisely hello coldly fonwderfully
-          </div>
+          <div class="text-overline text-right mb-1">Normal Product List Total: {{ totalPrice }}</div>
+          <div class="text-overline text-right mb-1">Customized Product List Total: {{ CtotalPrice }}</div>
+          <div class="text-h6 text-right mb-1">Final Price:{{ totalPrice + CtotalPrice }}</div>
         </div>
       </v-card-item>
 
       <v-card-actions>
-        <v-btn variant="outlined"> Button </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn variant="outlined"  @click="comfirmPurchase"> Check Out </v-btn>
       </v-card-actions>
     </v-card>
     <!-- 購買規範說明 -->
@@ -138,7 +126,6 @@
 <script setup>
 import { ref, computed } from "vue";
 import axios from "axios";
-import CustomizedCart from "../customerzied/Cart.vue";
 import CtmizedPTable from "../../components/CtmizedPTableInCart.vue"; //../../components/CtmizedPTableInCart.vue
 
 const apiurl = "https://localhost:7098/";
@@ -152,6 +139,12 @@ const employeeId = 1;
 const todData = ref([]);
 
 const totalPrice = ref(0);
+const CtotalPrice = ref(0);
+
+//由子元件來呼叫，並把資料傳過來
+const childHandler = CPrice => {
+    CtotalPrice.value = CPrice
+}
 
 function initV() {
   //checkMemberLogin();
@@ -210,6 +203,7 @@ async function comfirmPurchase() {
 }
 
 initV();
+
 </script>
 
 <style>
