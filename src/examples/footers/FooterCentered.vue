@@ -76,6 +76,7 @@ defineProps({
         <div class="col-8 mx-auto text-center mt-1">
           <p class="mb-0 text-secondary">
             Copyright © {{ new Date().getFullYear() }} Material by Creative Tim.
+            123
           </p>
         </div>
       </div>

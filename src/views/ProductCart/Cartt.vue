@@ -83,8 +83,11 @@
     </v-row>
     <v-row justify="end">
       <v-col cols="12" align="end">
-        <v-btn href="" size="x-large" color="#B7582A"
-          >Buy More Customized Product</v-btn
+        <v-btn
+          href="http://localhost:3000/productList"
+          size="x-large"
+          color="#B7582A"
+          >Buy More Normal Product</v-btn
         >
       </v-col>
     </v-row>
@@ -92,7 +95,7 @@
     <v-divider :thickness="3"></v-divider>
     <!-- 商品總價與次要選項 -->
 
-    <CtmizedPTable> </CtmizedPTable>
+    <CtmizedPTable></CtmizedPTable>
 
     <!-- 下方按鈕取消與確認按鈕 -->
 
@@ -106,7 +109,21 @@
         確認結帳
       </button>
     </div>
+    <v-card class="mx-auto" variant="outlined">
+      <v-card-item>
+        <div>
+          <div class="text-overline text-right mb-1">OVERLINE</div>
+          <div class="text-h6 text-right mb-1">Headline</div>
+          <div class="text-caption text-right">
+            Greyhound divisely hello coldly fonwderfully
+          </div>
+        </div>
+      </v-card-item>
 
+      <v-card-actions>
+        <v-btn variant="outlined"> Button </v-btn>
+      </v-card-actions>
+    </v-card>
     <!-- 購買規範說明 -->
     <div>
       <br />
@@ -197,6 +214,6 @@ initV();
 
 <style>
 .custom-container {
-  max-width: 1200px; /* 您可以根據需要調整數值 */
+  width: 80%; /* 調整container寬度 */
 }
 </style>

@@ -135,7 +135,10 @@
   <br />
   <v-row>
     <v-col cols="9" align="end">
-      <v-btn size="x-large" color="#e5d2ab" href="http://localhost:3000/Cart"
+      <v-btn
+        size="x-large"
+        color="#e5d2ab"
+        href="http://localhost:3000/cartDetailDisplay"
         >Go to Cart</v-btn
       >
     </v-col>
