@@ -5,17 +5,29 @@
   <v-table class="text-center">
     <thead>
       <tr>
-        <th class="text-right padding-right">Body Part</th>
-        <th class="text-center">ModelId</th>
+        <th class=""></th>
+        <th class="text-center"></th>
         <th class="text-center">Model</th>
-        <th class="text-center">Model-Price</th>
+        <th class="text-center"></th>
         <th class="text-center">+</th>
-        <th class="text-center">MaterialId</th>
+        <th class="text-center"></th>
         <th class="text-center">Material</th>
-        <th class="text-center">Material-Price</th>
+        <th class="text-center"></th>
         <th class="text-center">=</th>
+        <th class="text-center" colspan="2">Component</th>
+      </tr>
+      <tr>
+        <th class="text-right padding-right">Body Part</th>
+        <th class="text-center">Id</th>
+        <th class="text-center">Name</th>
+        <th class="text-center">Price</th>
+        <th class="text-center">+</th>
+        <th class="text-center">Id</th>
+        <th class="text-center">Name</th>
+        <th class="text-center">Price</th>
+        <th class="text-center">=</th>
+        <th class="text-center">Id</th>
         <th class="text-center">SubTotal</th>
-        <th class="text-center">ComponentId</th>
       </tr>
     </thead>
     <tbody>
@@ -29,8 +41,8 @@
         <td id="head_M"></td>
         <td id="">{{ head_m_price }}</td>
         <td id="">=</td>
-        <td id="">{{ head_mo_price + head_m_price }}</td>
         <td id="">{{ comId.c_head_Id }}</td>
+        <td id="">{{ head_mo_price + head_m_price }}</td>
       </tr>
       <tr>
         <td class="text-right">Body</td>
@@ -42,8 +54,8 @@
         <td id="body_M"></td>
         <td id="">{{ body_m_price }}</td>
         <td id="">=</td>
-        <td id="">{{ body_mo_price + body_m_price }}</td>
         <td id="">{{ comId.c_body_Id }}</td>
+        <td id="">{{ body_mo_price + body_m_price }}</td>
       </tr>
       <tr>
         <td class="text-right">Right Hand</td>
@@ -55,8 +67,8 @@
         <td id="rhand_M"></td>
         <td id="">{{ rhand_m_price }}</td>
         <td id="">=</td>
-        <td id="">{{ rhand_mo_price + rhand_m_price }}</td>
         <td id="">{{ comId.c_rhand_Id }}</td>
+        <td id="">{{ rhand_mo_price + rhand_m_price }}</td>
       </tr>
       <tr>
         <td class="text-right">Left Hand</td>
@@ -68,8 +80,8 @@
         <td id="lhand_M"></td>
         <td id="">{{ lhand_m_price }}</td>
         <td id="">=</td>
-        <td id="">{{ lhand_mo_price + lhand_m_price }}</td>
         <td id="">{{ comId.c_lhand_Id }}</td>
+        <td id="">{{ lhand_mo_price + lhand_m_price }}</td>
       </tr>
       <tr>
         <td class="text-right">Right Foot</td>
@@ -81,8 +93,8 @@
         <td id="rfoot_M"></td>
         <td id="">{{ rfoot_m_price }}</td>
         <td id="">=</td>
-        <td id="">{{ rfoot_mo_price + rfoot_m_price }}</td>
         <td id="">{{ comId.c_rfoot_Id }}</td>
+        <td id="">{{ rfoot_mo_price + rfoot_m_price }}</td>
       </tr>
       <tr>
         <td class="text-right">Left Foot</td>
@@ -94,8 +106,8 @@
         <td id="lfoot_M"></td>
         <td id="">{{ lfoot_m_price }}</td>
         <td id="">=</td>
-        <td id="">{{ lfoot_mo_price + lfoot_m_price }}</td>
         <td id="">{{ comId.c_lfoot_Id }}</td>
+        <td id="">{{ lfoot_mo_price + lfoot_m_price }}</td>
       </tr>
     </tbody>
   </v-table>
@@ -121,8 +133,17 @@
   <p class="TotalP">Total Price:{{ calculateSum() * amount }}</p>
 
   <br />
+  <v-row>
+    <v-col cols="9" align="end">
+      <v-btn size="x-large" color="#e5d2ab" href="http://localhost:3000/Cart"
+        >Go to Cart</v-btn
+      >
+    </v-col>
+    <v-col cols="3" align="end">
+      <v-btn size="x-large" color="#e5d2ab" @click="AddToCart">Buy Now</v-btn>
+    </v-col>
+  </v-row>
 
-  <v-btn size="x-large" color="#e5d2ab" @click="AddToCart">Buy Now</v-btn>
   <!-- <v-btn size="x-large" color="#e5d2ab" @click="Cclean">Delete</v-btn> -->
   <!-- <v-btn size="x-large" color="#e5d2ab" @click="ScreenShot">Test</v-btn> -->
 </template>
@@ -448,11 +469,14 @@ export default {
 }
 th:first-child {
   border-right: 1px solid #adadad;
-  background-color: #adadad;
+  background-color: #dbdbdb;
 }
 td:first-child {
   border-right: 1px solid #adadad;
-  background-color: #adadad;
+  background-color: #dbdbdb;
+}
+th {
+  background-color: #e0dacc;
 }
 /* 添加自定義的class來改變文本的大小和粗細 */
 </style>

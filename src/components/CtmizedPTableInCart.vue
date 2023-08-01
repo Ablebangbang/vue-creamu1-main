@@ -10,7 +10,7 @@
             <br />
             <br />
             <v-btn
-              href="http://localhost:5173/WebGL2"
+              href="http://localhost:3000/customized"
               prepend-icon="mdi-cart-arrow-down"
               size="x-large"
               color="#B7582A"
@@ -124,7 +124,7 @@
               <v-btn
                 :id="index"
                 variant="text"
-                color="secondary"
+                color="#B7582A"
                 @click="deleteItem(index)"
               >
                 Delete
@@ -136,15 +136,28 @@
     </div>
     <!-- 動態新增-結束 -->
     <hr />
-    <h2>Total:{{ TotalPrice() }}</h2>
-    <v-row justify="right">
-      <v-col>
+    <v-row justify="end">
+      <v-col cols="auto">
+        <h5>Customized Product List Total:{{ TotalPrice() }}</h5>
+      </v-col>
+    </v-row>
+    <v-row justify="end">
+      <v-col cols="6" align="end">
         <v-btn
           v-if="products.length != 0"
           size="x-large"
           color="#e5d2ab"
           @click="SaveToCombineDetail"
           >Check out</v-btn
+        >
+      </v-col>
+      <v-col cols="6" align="end">
+        <v-btn
+          v-if="products.length != 0"
+          href="http://localhost:3000/customized"
+          size="x-large"
+          color="#B7582A"
+          >Buy More Customized Product</v-btn
         >
       </v-col>
     </v-row>
