@@ -1,88 +1,126 @@
 <template>
-  <form @submit.prevent="handleSubmit" class="mt-5">
-    <div class="mb-3">
-      <label class="form-label">姓名 :</label>
-      <input v-model="member.name" type="text" name="name" class="form-control" required />
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Email :</label>
-      <input type="email" class="form-control" v-model="member.email" name="email" required />
-    </div>
-
-    <!-- 縣市下拉選單 -->
-
-    <!-- 區域下拉選單 -->
-    <div class="row">
-      <div class="col-2">
-        <div class="mb-3">
-          <label class="form-label">縣市 :</label>
-          <select v-model="selectedCity" @change="handleCityChange" class="form-select">
-            <option value>{{ city }}</option>
-            <option v-for="citys in cities" :key="citys">{{ citys }}</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-2">
-        <div class="mb-3">
-          <label class="form-label">區域 :</label>
-          <select v-model="selectedDistrict" class="form-select">
-            <option value>{{ region }}</option>
-            <option v-for="district in cityDistricts[selectedCity]" :key="district">{{ district }}</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-8">
-        <div class="mb-3">
-          <label class="form-label">地址 :</label>
-          <input v-model="address" type="text" name="address" class="form-control" pattern="^[a-zA-Z0-9\u4e00-\u9fa5]+$"
-            title="請輸入有效的地址格式!( 不能有特殊符號與空格 )" required />
-        </div>
-      </div>
-    </div>
-
-    <div class="mb-3">
-      <label class="form-label">電話 :</label>
-      <input v-model="member.telephone" type="text" name="telephone" pattern="[0-9]+" title="請輸入數字" required
-        class="form-control" />
-    </div>
-    <div class="mb-3 visually-hidden">
-      <label class="form-label">照片 :</label>
-      <input v-model="member.image" type="text" name="image" class="form-control" />
-    </div>
-    <div class="mb-3">
-      <label class="form-label">生日 :</label>
-      <input v-model="member.birthday" type="date" name="birthday" class="form-control" required />
-    </div>
-    <div class="mb-3 visually-hidden">
-      <label class="form-label">加入日期 :</label>
-      <input v-model="member.joinDate" type="date" name="joinDate" class="form-control" required />
-    </div>
-    <div class="mb-3 visually-hidden">
-      <label class="form-label">memberId :</label>
-      <input v-model="member.memberId" type="text" name="memberId" class="form-control" required />
-    </div>
-    <div class="mb-3">
-      <label class="form-label">備註</label>
-      <textarea class="form-control" rows="3" v-model="member.notes" name="notes"></textarea>
-    </div>
-    <div class="mb-3 visually-hidden">
-      <label class="form-label">Level</label>
-      <input v-model="member.level" type="text" name="level" class="form-control" required />
-    </div>
-    <button type="submit" class="btn btn-light">提交</button>
-  </form>
+  <div class="container">
+    <h1 class="d-flex align-center justify-center flex-wrap text-center mx-auto p-3">會員資料修改</h1>
+    <v-sheet class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4 pb-5" elevation="24"
+      height="100%" rounded max-width="800" width="100%">
+      <form @submit.prevent="handleSubmit" class="mt-5">
+        <v-row>
+          <v-col cols="12" md="10" class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4">
+            <v-text-field v-model="member.name" :rules="NameRules" label="姓名 :" required></v-text-field>
+          </v-col>
+          <v-col cols="12" md="10" class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4">
+            <v-text-field v-model="member.email" :rules="emailRules" label="E-mail" required></v-text-field>
+          </v-col>
+          <!-- 縣市下拉選單 -->
+          <v-col cols="6" md="5" class="d-flex align-center justify-center flex-wrap text-center"
+            style="margin-left: 70px;" required>
+            <v-combobox :label="`縣市 : ${selectedCity ? selectedCity : city}`" :items="cities" v-model="selectedCity"
+              @change="handleCityChange" required></v-combobox>
+          </v-col>
+          <!-- 區域下拉選單 -->
+          <v-col cols="6" md="5" class="d-flex align-center justify-center flex-wrap text-center px-4">
+            <v-combobox :label="`區域 : ${(selectedDistrict.length === 0) ? '' : selectedDistrict}`"
+              :items="cityDistricts[selectedCity]" v-model="selectedDistrict" :value="selectedDistrict"></v-combobox>
+          </v-col>
+          <v-col cols="12" md="10" class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4">
+            <v-text-field v-model="address" :rules="addressRules" label="地址 :" required></v-text-field>
+          </v-col>
+          <v-col cols="12" md="10" class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4">
+            <v-text-field v-model="member.telephone" :rules="telephoneRules" label="電話 :" required></v-text-field>
+          </v-col>
+          <div class="mb-3 visually-hidden">
+            <label class="form-label">照片 :</label>
+            <input v-model="member.image" type="text" name="image" class="form-control" />
+          </div>
+          <v-col cols="12" md="10" class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4">
+            <v-text-field label="生日 :" v-model="member.birthday">
+              <VueDatePicker v-model="member.birthday" :enable-time-picker="false" :format-locale="zhTW" />
+            </v-text-field>
+          </v-col>
+          <div class="mb-3 visually-hidden">
+            <label class="form-label">加入日期 :</label>
+            <input v-model="member.joinDate" type="date" name="joinDate" class="form-control" required />
+          </div>
+          <div class="mb-3 visually-hidden">
+            <label class="form-label">memberId :</label>
+            <input v-model="member.memberId" type="text" name="memberId" class="form-control" required />
+          </div>
+          <v-col cols="12" md="10" class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4">
+            <v-textarea clearable label="備註" v-model="member.notes" name="notes"></v-textarea>
+          </v-col>
+          <div class="mb-3 visually-hidden">
+            <label class="form-label">Level</label>
+            <input v-model="member.level" type="text" name="level" class="form-control" required />
+          </div>
+          <v-col cols="12" md="10" class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4">
+            <v-btn type="submit" block>提交</v-btn>
+          </v-col>
+        </v-row>
+      </form>
+    </v-sheet>
+  </div>
 </template>
   
 <script setup>
 import { ref, watch } from "vue";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import { zhTW } from "date-fns/locale";
 import router from "../../router/index.js";
-const selectedCity = ref(""); // 用於綁定選中的縣市
-const selectedDistrict = ref(""); // 用於綁定選中的區域
+
+let selectedCity = ref(""); // 用於綁定選中的縣市
+let selectedDistrict = ref(""); // 用於綁定選中的區域
 const districts = ref([]); // 定義 districts 變數
 let city = ref("");
 let region = ref("");
 let address = ref("");
+const NameRules = [
+  value => {
+    if (value?.length > 2) return true
 
+    return '請輸入 姓氏 + 名'
+  },
+]
+const emailRules = [
+  value => {
+    if (value) return true
+
+    return 'E-mail 是必填 !'
+  },
+  value => {
+    if (/.+@.+\..+/.test(value)) return true
+
+    return '請填寫正確 E-mail 格式 '
+  },
+]
+const addressRules = [
+  value => {
+    if (value) return true
+
+    return '地址是必填 !'
+  },
+  value => {
+    if (/^[a-zA-Z0-9\u4e00-\u9fa5]+$/.test(value)) return true;
+
+    return '請填寫正確地址格式 '
+  },
+]
+const telephoneRules = [
+  value => {
+    if (value) return true
+
+    return '電話是必填 !'
+  },
+  value => {
+    if (value.length >= 9) return true;
+
+    return '電話號碼至少需要9個數字';
+  },
+  value => {
+    if (/^[0-9]{9,}$/.test(value)) return true;
+
+    return '請填寫正確電話格式 '
+  },
+]
 const id = 10; // 暫時設定的變數
 const Address = "https://localhost:7098";
 const member = ref([]);
@@ -104,6 +142,8 @@ const loadMember = async () => {
   address.value = member.value.address.substring(
     member.value.address.lastIndexOf("區") + 1
   );
+  selectedCity.value = city.value
+  // selectedDistrict.value = region.value
   // console.log(city);
   // console.log(region);
   // console.log(address);
@@ -527,6 +567,10 @@ watch(selectedCity, newCity => {
   selectedDistrict.value = ""; // 每次縣市變更時，清空選中的區域
   if (newCity) {
     districts.value = cityDistricts[newCity]; // 設置對應的區域資料到 districts 變數
+    if (districts.value.includes(region.value)) { selectedDistrict.value = region.value; }
+    else { selectedDistrict.value = "" }
+
+
   } else {
     districts.value = []; // 若未選擇縣市，清空區域下拉選單的選項
   }

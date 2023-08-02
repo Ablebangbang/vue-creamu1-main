@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="container">
     <br />
     <p id="title">歷史紀錄</p>
     <div class="row mb-5">
-      <div class="col-3">
+      <div class="col-2">
         <p class="pt-1 mt-1 mx-5 text-end" style="font-family: Noto Sans TC; sans-serif;">訂單成立日期 :</p>
       </div>
       <div class="col-4">
