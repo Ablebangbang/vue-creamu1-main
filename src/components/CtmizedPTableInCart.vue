@@ -138,6 +138,7 @@
   <hr />
   <v-row justify="end">
     <v-col cols="auto">
+      <br />
       <h5>Customized Product List Total:{{ TotalPrice() }}</h5>
     </v-col>
   </v-row>
@@ -167,10 +168,10 @@
 
 <script>
 let routerport = "https://localhost:7098/";
-import { defineEmits } from 'vue';
+import { defineEmits } from "vue";
 
 export default {
-  emits: ['sendCPrice'],
+  emits: ["sendCPrice"],
   data() {
     return {
       //先在此宣告要存放的變數位置
@@ -178,6 +179,7 @@ export default {
       foramount: JSON.parse(localStorage.getItem("addItemList")) || 1, //此用來取購買數量用，會另外取是因為想要在購物車裡可以動態更改數量
       value: 1,
       //products: ProdList,
+      imgs: [],
     };
   },
   methods: {
@@ -207,50 +209,96 @@ export default {
         let amount = this.products[i].Info.amount;
         sum += unitP * amount;
       }
-      this.$emit("sendCPrice",sum);
+      this.$emit("sendCPrice", sum);
       return sum;
     },
+    //轉換截圖的檔案類型
+    dataURLtoFormData(dataurl, filename) {
+      var arr = dataurl.split(","),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+      this.imgs = [];
+
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      //儲存圖片Name
+      this.imgs.push(filename);
+      return new File([u8arr], filename, { type: mime });
+    },
+    //保存圖片
+    async uploadPhoto(file) {
+      const id = 1;
+      const PhotoImage = new FormData();
+      PhotoImage.append("photo", file);
+      try {
+        const res = await fetch(`${routerport}api/Orderimgs/${id}/upload`, {
+          method: "POST",
+          body: PhotoImage,
+        });
+
+        if (res.ok) {
+          console.log("upload product images ok");
+        } else {
+          console.error("upload product images fail", res.error);
+        }
+      } catch (error) {
+        console.error("上傳照片時發生錯誤：", error);
+      }
+    },
+    //存到CombineDetail
     async SaveToCombineDetail() {
-      const data = this.products.map((product) => {
-        return {
-          Chead: product.ComDetail[0].comId,
-          Cbody: product.ComDetail[1].comId,
-          Clhand: product.ComDetail[2].comId,
-          Crhand: product.ComDetail[3].comId,
-          Clfoot: product.ComDetail[4].comId,
-          Crfoot: product.ComDetail[5].comId,
-          SubTotal: product.Info.unitprice,
-          Type: product.Info.type,
-        };
-      });
-      //const Comdata = new FormData(data);
+      if (this.products.length == 0) {
+        return "None C data";
+      } else {
+        const data = this.products.map((product) => {
+          return {
+            Chead: product.ComDetail[0].comId,
+            Cbody: product.ComDetail[1].comId,
+            Clhand: product.ComDetail[2].comId,
+            Crhand: product.ComDetail[3].comId,
+            Clfoot: product.ComDetail[4].comId,
+            Crfoot: product.ComDetail[5].comId,
+            SubTotal: product.Info.unitprice,
+            Type: product.Info.type,
+          };
+        });
+        console.log(data);
+        // const imgdata = this.imgs.map((img) => {
+        //   return{
+        //     OrderID:img.value,
+        //     fPath:img.value,
+        //   }
+        // });
 
-      // try {
-      //   fetch(`/api/CombineDetails`, {
-      //     method: POST,
-      //     //Content-Type為application/json，表示以JSON回傳給API
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify(data),
-      //   });
+        const imagesFormData = this.products.map((p) =>
+          this.dataURLtoFormData(p.Img)
+        );
+        imagesFormData.forEach(async (formData) => {
+          await this.uploadPhoto(formData);
+        });
+        //await this.uploadPhoto(imagesFormData[0]);
 
-      //   if (!reaponse.ok) {
-      //     throw new Error(`Network response was not ok`);
-      //   }+
-      //   const result = await Response.json();
-      // } catch (error) {
-      //   console.error(`Fetch Error`, error);
-      // }
-      console.log(data);
-      //console.log(Comdata);
-      const response = await fetch(
-        `${routerport}api/saveCombineDetail?combineDetail=${JSON.stringify(
-          data
-        )}`
-      );
-      const result = await response.text();
-      console.log(result);
+        //fetch儲存到CombineDetail的API
+        const response = await fetch(
+          `${routerport}api/saveCombineDetail?combineDetail=${JSON.stringify(
+            data
+          )}`
+        );
+        //response return的值
+        const result = await response.text();
+        //清除LocalStorage裡的客製化商品清單
+        // localStorage.removeItem("addItemList");
+        console.log(result);
+
+        // const response2 = await fetch(
+        //   `${routerport}api/saveOrderimgs?orderimgs=${JSON.stringify(imgdata)}`
+        // );
+        // const result2 = await response2.text();
+        // console.log(result2);
+      }
     },
   },
   mounted() {
