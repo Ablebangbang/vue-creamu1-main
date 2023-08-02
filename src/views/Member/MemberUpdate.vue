@@ -121,7 +121,7 @@ const telephoneRules = [
     return '請填寫正確電話格式 '
   },
 ]
-const id = 10; // 暫時設定的變數
+const id = localStorage.getItem('userId'); // 暫時設定的變數
 const Address = "https://localhost:7098";
 const member = ref([]);
 

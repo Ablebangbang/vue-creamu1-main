@@ -53,6 +53,10 @@ function getArrowColor() {
   }
 }
 
+const dellocalStorage = () => {
+  localStorage.removeItem("userId");
+}
+
 // set text color
 const getTextColor = () => {
   let color;
@@ -90,147 +94,76 @@ watch(
 );
 </script>
 <template>
-  <nav
-    class="navbar navbar-expand-lg top-0"
-    :class="{
-      'z-index-3 w-100 shadow-none navbar-transparent position-absolute my-3':
-        props.transparent,
-      'my-3 blur border-radius-lg z-index-3 py-2 shadow py-2 start-0 end-0 mx-4 position-absolute mt-4':
-        props.sticky,
-      'navbar-light bg-white py-3': props.light,
-      ' navbar-dark bg-gradient-dark z-index-3 py-3': props.dark
-    }"
-  >
-    <div
-      :class="
-        props.transparent || props.light || props.dark
-          ? 'container'
-          : 'container-fluid px-0'
-      "
-    >
-      <RouterLink
-        class="navbar-brand d-none d-md-block"
-        :class="[
-          (props.transparent && textDark.value) || !props.transparent
-            ? 'text-dark font-weight-bolder ms-sm-3'
-            : 'text-white font-weight-bolder ms-sm-3'
-        ]"
-        :to="{ name: 'presentation' }"
-        rel="tooltip"
-        title="CreamU"
-        data-placement="bottom"
-      >
-      <img src="src/assets/img/logo/CreamULT.png" alt="">
+  <nav class="navbar navbar-expand-lg top-0" :class="{
+    'z-index-3 w-100 shadow-none navbar-transparent position-absolute my-3':
+      props.transparent,
+    'my-3 blur border-radius-lg z-index-3 py-2 shadow py-2 start-0 end-0 mx-4 position-absolute mt-4':
+      props.sticky,
+    'navbar-light bg-white py-3': props.light,
+    ' navbar-dark bg-gradient-dark z-index-3 py-3': props.dark
+  }">
+    <div :class="props.transparent || props.light || props.dark
+      ? 'container'
+      : 'container-fluid px-0'
+      ">
+      <RouterLink class="navbar-brand d-none d-md-block" :class="[
+        (props.transparent && textDark.value) || !props.transparent
+          ? 'text-dark font-weight-bolder ms-sm-3'
+          : 'text-white font-weight-bolder ms-sm-3'
+      ]" :to="{ name: 'presentation' }" rel="tooltip" title="CreamU" data-placement="bottom">
+        <img src="src/assets/img/logo/CreamULT.png" alt="">
 
         CreamU
       </RouterLink>
-      <RouterLink
-        class="navbar-brand d-block d-md-none"
-        :class="
-          props.transparent || props.dark
-            ? 'text-white'
-            : 'font-weight-bolder ms-sm-3'
-        "
-        to="/"
-        rel="tooltip"
-        title="CreamU"
-        data-placement="bottom"
-      >
-      <img src="src/assets/img/logo/CreamULT.png" alt="">
+      <RouterLink class="navbar-brand d-block d-md-none" :class="props.transparent || props.dark
+        ? 'text-white'
+        : 'font-weight-bolder ms-sm-3'
+        " to="/" rel="tooltip" title="CreamU" data-placement="bottom">
+        <img src="src/assets/img/logo/CreamULT.png" alt="">
         CreamU
       </RouterLink>
-      <a
-        href="#"
-        style="color:#e5d2ab; background-color: #768a3a;"
-        class="btn btn-sm  mb-0 ms-auto d-lg-none d-block" 
-        >Buy Now</a
-      >
-      <button
-        class="navbar-toggler shadow-none ms-2"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navigation"
-        aria-controls="navigation"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+      <a href="#" style="color:#e5d2ab; background-color: #768a3a;" class="btn btn-sm  mb-0 ms-auto d-lg-none d-block">Buy
+        Now</a>
+      <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation"
+        aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon mt-2">
           <span class="navbar-toggler-bar bar1"></span>
           <span class="navbar-toggler-bar bar2"></span>
           <span class="navbar-toggler-bar bar3"></span>
         </span>
       </button>
-      <div
-        class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0"
-        id="navigation"
-      >
+      <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0" id="navigation">
         <ul class="navbar-nav navbar-nav-hover ms-auto">
           <li class="nav-item dropdown dropdown-hover mx-2">
-            <a
-              role="button"
-              class="nav-link ps-2 d-flex cursor-pointer align-items-center"
-              :class="getTextColor()"
-              id="dropdownMenuPages"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i
-                class="material-icons opacity-6 me-2 text-md"
-                :class="getTextColor()"
-                >dashboard</i
-              >
+            <a role="button" class="nav-link ps-2 d-flex cursor-pointer align-items-center" :class="getTextColor()"
+              id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="material-icons opacity-6 me-2 text-md" :class="getTextColor()">dashboard</i>
               商品
-              <img
-                :src="getArrowColor()"
-                alt="down-arrow"
-                class="arrow ms-2 d-lg-block d-none"
-              />
-              <img
-                :src="getArrowColor()"
-                alt="down-arrow"
-                class="arrow ms-1 d-lg-none d-block ms-auto"
-              />
+              <img :src="getArrowColor()" alt="down-arrow" class="arrow ms-2 d-lg-block d-none" />
+              <img :src="getArrowColor()" alt="down-arrow" class="arrow ms-1 d-lg-none d-block ms-auto" />
             </a>
-            <div
-              class="dropdown-menu dropdown-menu-animation ms-n3 dropdown-md p-3 border-radius-xl mt-0 mt-lg-3"
-              aria-labelledby="dropdownMenuPages"
-            >
+            <div class="dropdown-menu dropdown-menu-animation ms-n3 dropdown-md p-3 border-radius-xl mt-0 mt-lg-3"
+              aria-labelledby="dropdownMenuPages">
               <div class="row d-none d-lg-block">
                 <div class="col-12 px-4 py-2">
                   <div class="row">
                     <div class="position-relative">
-                      <div
-                        class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1"
-                      >
+                      <div class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1">
                         動物公仔系列
                       </div>
-                      <RouterLink
-                      to="/productList"
-                        class="dropdown-item border-radius-md"
-                      >
+                      <RouterLink to="/productList" class="dropdown-item border-radius-md">
                         <span>有角系列</span>
                       </RouterLink>
-                      <RouterLink
-                        to="/productList"
-                        class="dropdown-item border-radius-md"
-                      >
+                      <RouterLink to="/productList" class="dropdown-item border-radius-md">
                         <span>無角系列</span>
                       </RouterLink>
-                      <RouterLink
-                        to="/productList"
-                        class="dropdown-item border-radius-md"
-                      >
+                      <RouterLink to="/productList" class="dropdown-item border-radius-md">
                         <span>居家動物系列</span>
                       </RouterLink>
-                      <div
-                        class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-0 mt-3"
-                      >
+                      <div class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-0 mt-3">
                         客製化木偶
                       </div>
-                      <RouterLink
-                        to="/customized"
-                        class="dropdown-item border-radius-md"
-                      >
+                      <RouterLink to="/customized" class="dropdown-item border-radius-md">
                         <span>馬上DIY</span>
                       </RouterLink>
                     </div>
@@ -238,155 +171,84 @@ watch(
                 </div>
               </div>
               <div class="d-lg-none">
-                <div
-                  class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-0"
-                >
-                動物公仔系列
+                <div class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-0">
+                  動物公仔系列
                 </div>
-                <RouterLink
-                  to="/productList"
-                  class="dropdown-item border-radius-md"
-                >
+                <RouterLink to="/productList" class="dropdown-item border-radius-md">
                   <span>有角系列</span>
                 </RouterLink>
-                <RouterLink
-                  to="/productList"
-                  class="dropdown-item border-radius-md"
-                >
+                <RouterLink to="/productList" class="dropdown-item border-radius-md">
                   <span>無角系列</span>
                 </RouterLink>
-                <RouterLink
-                  to="/productList"
-                  class="dropdown-item border-radius-md"
-                >
+                <RouterLink to="/productList" class="dropdown-item border-radius-md">
                   <span>居家系列</span>
                 </RouterLink>
-                <div
-                  class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-0 mt-3"
-                >
+                <div class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-0 mt-3">
                   客製化木偶
                 </div>
-                <RouterLink
-                to="/customized"
-                  class="dropdown-item border-radius-md"
-                >
+                <RouterLink to="/customized" class="dropdown-item border-radius-md">
                   <span>開始DIY</span>
                 </RouterLink>
               </div>
             </div>
           </li>
           <li class="nav-item dropdown dropdown-hover mx-2">
-            <a
-              role="button"
-              class="nav-link ps-2 d-flex cursor-pointer align-items-center"
-              :class="getTextColor()"
-              id="dropdownMenuBlocks"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i
-                class="material-icons opacity-6 me-2 text-md"
-                :class="getTextColor()"
-                >view_day</i
-              >
+            <a role="button" class="nav-link ps-2 d-flex cursor-pointer align-items-center" :class="getTextColor()"
+              id="dropdownMenuBlocks" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="material-icons opacity-6 me-2 text-md" :class="getTextColor()">view_day</i>
               資訊專區
-              <img
-                :src="getArrowColor()"
-                alt="down-arrow"
-                class="arrow ms-2 d-lg-block d-none"
-              />
-              <img
-                :src="getArrowColor()"
-                alt="down-arrow"
-                class="arrow ms-1 d-lg-none d-block ms-auto"
-              />
+              <img :src="getArrowColor()" alt="down-arrow" class="arrow ms-2 d-lg-block d-none" />
+              <img :src="getArrowColor()" alt="down-arrow" class="arrow ms-1 d-lg-none d-block ms-auto" />
             </a>
             <div
               class="dropdown-menu dropdown-menu-end dropdown-menu-animation dropdown-md dropdown-md-responsive p-3 border-radius-lg mt-0 mt-lg-3"
-              aria-labelledby="dropdownMenuBlocks"
-            >
+              aria-labelledby="dropdownMenuBlocks">
               <div class="d-none d-lg-block">
                 <ul class="list-group">
-                  <li
-                    class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0"
-                  >
-                    <a
-                      class="dropdown-item py-2 ps-3 border-radius-md"
-                      href="javascript:;"
-                    >
+                  <li class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
+                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="javascript:;">
                       <div class="d-flex">
-                        <div
-                          class="w-100 d-flex align-items-center justify-content-between"
-                        >
+                        <div class="w-100 d-flex align-items-center justify-content-between">
                           <div>
                             <h6
-                              class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"
-                            >
+                              class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                               最新消息
                             </h6>
                             <span class="text-sm">Latest News</span>
                           </div>
-                          <img
-                            :src="downArrow"
-                            alt="down-arrow"
-                            class="arrow"
-                          />
+                          <img :src="downArrow" alt="down-arrow" class="arrow" />
                         </div>
                       </div>
                     </a>
                     <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
-                      <RouterLink
-                        class="dropdown-item ps-3 border-radius-md mb-1"
-                        :to="{ name: 'page-headers' }"
-                      >
+                      <RouterLink class="dropdown-item ps-3 border-radius-md mb-1" :to="{ name: 'page-headers' }">
                         最新資訊
                       </RouterLink>
-                      <RouterLink
-                        class="dropdown-item ps-3 border-radius-md mb-1"
-                        :to="{ name: 'page-features' }"
-                      >
+                      <RouterLink class="dropdown-item ps-3 border-radius-md mb-1" :to="{ name: 'page-features' }">
                         關於我們
                       </RouterLink>
                     </div>
                   </li>
-                  <li
-                    class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0"
-                  >
-                    <a
-                      class="dropdown-item py-2 ps-3 border-radius-md"
-                      href="javascript:;"
-                    >
+                  <li class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
+                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="javascript:;">
                       <div class="d-flex">
-                        <div
-                          class="w-100 d-flex align-items-center justify-content-between"
-                        >
+                        <div class="w-100 d-flex align-items-center justify-content-between">
                           <div>
                             <h6
-                              class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"
-                            >
+                              class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                               注意事項
                             </h6>
                             <span class="text-sm">Precautions</span>
                           </div>
-                          <img
-                            :src="downArrow"
-                            alt="down-arrow"
-                            class="arrow"
-                          />
+                          <img :src="downArrow" alt="down-arrow" class="arrow" />
                         </div>
                       </div>
                     </a>
                     <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
-                      <RouterLink
-                        class="dropdown-item ps-3 border-radius-md mb-1"
-                        :to="{ name: 'navigation-navbars' }"
-                      >
+                      <RouterLink class="dropdown-item ps-3 border-radius-md mb-1" :to="{ name: 'navigation-navbars' }">
                         智慧財產宣告
                       </RouterLink>
-                      <RouterLink
-                        class="dropdown-item ps-3 border-radius-md mb-1"
-                        :to="{ name: 'navigation-navtabs' }"
-                      >
+                      <RouterLink class="dropdown-item ps-3 border-radius-md mb-1" :to="{ name: 'navigation-navtabs' }">
                         常見問題
                       </RouterLink>
                       <!-- <RouterLink
@@ -397,44 +259,26 @@ watch(
                       </RouterLink> -->
                     </div>
                   </li>
-                  <li
-                    class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0"
-                  >
-                    <a
-                      class="dropdown-item py-2 ps-3 border-radius-md"
-                      href="javascript:;"
-                    >
+                  <li class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
+                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="javascript:;">
                       <div class="d-flex">
-                        <div
-                          class="w-100 d-flex align-items-center justify-content-between"
-                        >
+                        <div class="w-100 d-flex align-items-center justify-content-between">
                           <div>
                             <h6
-                              class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"
-                            >
+                              class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                               流程解說
                             </h6>
                             <span class="text-sm">Process explanation</span>
                           </div>
-                          <img
-                            :src="downArrow"
-                            alt="down-arrow"
-                            class="arrow"
-                          />
+                          <img :src="downArrow" alt="down-arrow" class="arrow" />
                         </div>
                       </div>
                     </a>
                     <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
-                      <RouterLink
-                        class="dropdown-item ps-3 border-radius-md mb-1"
-                        :to="{ name: 'inputareas-inputs' }"
-                      >
+                      <RouterLink class="dropdown-item ps-3 border-radius-md mb-1" :to="{ name: 'inputareas-inputs' }">
                         購買流程介紹
                       </RouterLink>
-                      <RouterLink
-                        class="dropdown-item ps-3 border-radius-md mb-1"
-                        :to="{ name: 'inputareas-forms' }"
-                      >
+                      <RouterLink class="dropdown-item ps-3 border-radius-md mb-1" :to="{ name: 'inputareas-forms' }">
                         客製化流程介紹
                       </RouterLink>
                     </div>
@@ -576,53 +420,35 @@ watch(
               <div class="row d-lg-none">
                 <div class="col-md-12">
                   <div class="d-flex mb-2">
-                    <div
-                      class="w-100 d-flex align-items-center justify-content-between"
-                    >
+                    <div class="w-100 d-flex align-items-center justify-content-between">
                       <div>
                         <h6
-                          class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"
-                        >
+                          class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                           最新資訊
                         </h6>
                       </div>
                     </div>
                   </div>
-                  <RouterLink
-                    class="dropdown-item ps-3 border-radius-md mb-1"
-                    :to="{ name: 'page-headers' }"
-                  >
+                  <RouterLink class="dropdown-item ps-3 border-radius-md mb-1" :to="{ name: 'page-headers' }">
                     最新消息
                   </RouterLink>
-                  <RouterLink
-                    class="dropdown-item ps-3 border-radius-md mb-1"
-                    :to="{ name: 'page-features' }"
-                  >
+                  <RouterLink class="dropdown-item ps-3 border-radius-md mb-1" :to="{ name: 'page-features' }">
                     關於我們
                   </RouterLink>
                   <div class="d-flex mb-2 mt-3">
-                    <div
-                      class="w-100 d-flex align-items-center justify-content-between"
-                    >
+                    <div class="w-100 d-flex align-items-center justify-content-between">
                       <div>
                         <h6
-                          class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"
-                        >
+                          class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                           注意事項
                         </h6>
                       </div>
                     </div>
                   </div>
-                  <RouterLink
-                    class="dropdown-item ps-3 border-radius-md mb-1"
-                    :to="{ name: 'navigation-navbars' }"
-                  >
+                  <RouterLink class="dropdown-item ps-3 border-radius-md mb-1" :to="{ name: 'navigation-navbars' }">
                     智慧財產宣告
                   </RouterLink>
-                  <RouterLink
-                    class="dropdown-item ps-3 border-radius-md mb-1"
-                    :to="{ name: 'navigation-navtabs' }"
-                  >
+                  <RouterLink class="dropdown-item ps-3 border-radius-md mb-1" :to="{ name: 'navigation-navtabs' }">
                     常見問題
                   </RouterLink>
                   <!-- <RouterLink
@@ -759,95 +585,53 @@ watch(
             </div>
           </li>
           <li class="nav-item dropdown dropdown-hover mx-2">
-            <a
-              role="button"
-              class="nav-link ps-2 d-flex cursor-pointer align-items-center"
-              :class="getTextColor()"
-              id="dropdownMenuDocs"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i
-                class="material-icons opacity-6 me-2 text-md"
-                :class="getTextColor()"
-                >article</i
-              >
+            <a role="button" class="nav-link ps-2 d-flex cursor-pointer align-items-center" :class="getTextColor()"
+              id="dropdownMenuDocs" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="material-icons opacity-6 me-2 text-md" :class="getTextColor()">article</i>
               會員專區
-              <img
-                :src="getArrowColor()"
-                alt="down-arrow"
-                class="arrow ms-2 d-lg-block d-none"
-              />
-              <img
-                :src="getArrowColor()"
-                alt="down-arrow"
-                class="arrow ms-1 d-lg-none d-block ms-auto"
-              />
+              <img :src="getArrowColor()" alt="down-arrow" class="arrow ms-2 d-lg-block d-none" />
+              <img :src="getArrowColor()" alt="down-arrow" class="arrow ms-1 d-lg-none d-block ms-auto" />
             </a>
             <div
               class="dropdown-menu dropdown-menu-end dropdown-menu-animation dropdown-md mt-0 mt-lg-3 p-3 border-radius-lg"
-              aria-labelledby="dropdownMenuDocs"
-            >
+              aria-labelledby="dropdownMenuDocs">
               <div class="d-none d-lg-block">
                 <ul class="list-group">
                   <li class="nav-item list-group-item border-0 p-0">
-                    <a
-                      class="dropdown-item py-2 ps-3 border-radius-md"
-                      href=" https://www.creative-tim.com/learning-lab/vue/overview/material-kit/"
-                    >
+                    <a class="dropdown-item py-2 ps-3 border-radius-md"
+                      href=" http://localhost:3000/pages/landing-pages/basic" @click="dellocalStorage">
                       <h6
-                        class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"
-                      >
+                        class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                         登入/註冊
                       </h6>
-                      <span class="text-sm"
-                        >Login/Register</span
-                      >
+                      <span class="text-sm">Login/Register</span>
                     </a>
                   </li>
                   <li class="nav-item list-group-item border-0 p-0">
-                    <a
-                      class="dropdown-item py-2 ps-3 border-radius-md"
-                      href="http://localhost:3000/Member"
-                    >
+                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="http://localhost:3000/Member">
                       <h6
-                        class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"
-                      >
+                        class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                         會員資訊
                       </h6>
-                      <span class="text-sm"
-                        >Member profile</span
-                      >
+                      <span class="text-sm">Member profile</span>
                     </a>
                   </li>
                   <li class="nav-item list-group-item border-0 p-0">
-                    <a
-                      class="dropdown-item py-2 ps-3 border-radius-md"
-                      href="http://localhost:3000/cartDetailDisplay"
-                    >
+                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="http://localhost:3000/cartDetailDisplay">
                       <h6
-                        class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"
-                      >
+                        class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                         購物車
                       </h6>
-                      <span class="text-sm"
-                        >Shopping Cart</span
-                      >
+                      <span class="text-sm">Shopping Cart</span>
                     </a>
                   </li>
                   <li class="nav-item list-group-item border-0 p-0">
-                    <a
-                      class="dropdown-item py-2 ps-3 border-radius-md"
-                      href="http://localhost:3000/OrderHistory"
-                    >
+                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="http://localhost:3000/OrderHistory">
                       <h6
-                        class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"
-                      >
+                        class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                         歷史訂單
                       </h6>
-                      <span class="text-sm"
-                        >Order History</span
-                      >
+                      <span class="text-sm">Order History</span>
                     </a>
                   </li>
                   <!-- <li class="nav-item list-group-item border-0 p-0">
@@ -870,57 +654,35 @@ watch(
               </div>
               <div class="row d-lg-none">
                 <div class="col-md-12 g-0">
-                  <a
-                    class="dropdown-item py-2 ps-3 border-radius-md"
-                    href="./pages/about-us.html"
-                  >
+                  <a class="dropdown-item py-2 ps-3 border-radius-md"
+                    href="http://localhost:3000/pages/landing-pages/basic">
                     <h6
                       class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"
-                    >
+                      @click="dellocalStorage">
                       登入/註冊
                     </h6>
-                    <span class="text-sm"
-                      >Login/Register</span
-                    >
+                    <span class="text-sm">Login/Register</span>
                   </a>
-                  <a
-                    class="dropdown-item py-2 ps-3 border-radius-md"
-                    href="http://localhost:3000/Member"
-                  >
+                  <a class="dropdown-item py-2 ps-3 border-radius-md" href="http://localhost:3000/Member">
                     <h6
-                      class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"
-                    >
+                      class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                       會員資訊
                     </h6>
-                    <span class="text-sm"
-                      >Member Profile</span
-                    >
+                    <span class="text-sm">Member Profile</span>
                   </a>
-                  <a
-                    class="dropdown-item py-2 ps-3 border-radius-md"
-                    href="http://localhost:3000/OrderHistory"
-                  >
+                  <a class="dropdown-item py-2 ps-3 border-radius-md" href="http://localhost:3000/OrderHistory">
                     <h6
-                      class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"
-                    >
+                      class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                       歷史訂單
                     </h6>
-                    <span class="text-sm"
-                      >Order History</span
-                    >
+                    <span class="text-sm">Order History</span>
                   </a>
-                  <a
-                    class="dropdown-item py-2 ps-3 border-radius-md"
-                    href="http://localhost:3000/cartDetailDisplay"
-                  >
+                  <a class="dropdown-item py-2 ps-3 border-radius-md" href="http://localhost:3000/cartDetailDisplay">
                     <h6
-                      class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"
-                    >
+                      class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                       購物車
                     </h6>
-                    <span class="text-sm"
-                      >Shopping Cart</span
-                    >
+                    <span class="text-sm">Shopping Cart</span>
                   </a>
                   <!-- <a
                     class="dropdown-item py-2 ps-3 border-radius-md"
@@ -967,20 +729,12 @@ watch(
             </div>
           </li>
           <li class="nav-item dropdown dropdown-hover mx-2">
-            <a
-              href="http://localhost:3000/"
-              class="nav-link d-flex cursor-pointer align-items-center"
-            >
-              <svg
-                width="30px"
-                height="30px"
-                class="material-icons me-2 opacity-6"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                data-testid="FacebookIcon"
-                fill="blue"
-              >
-              <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"></path>
+            <a href="http://localhost:3000/" class="nav-link d-flex cursor-pointer align-items-center">
+              <svg width="30px" height="30px" class="material-icons me-2 opacity-6" viewBox="0 0 24 24" aria-hidden="true"
+                data-testid="FacebookIcon" fill="blue">
+                <path
+                  d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z">
+                </path>
               </svg>
               Facebook
             </a>
@@ -988,13 +742,8 @@ watch(
         </ul>
         <ul class="navbar-nav d-lg-block d-none">
           <li class="nav-item">
-            <a
-              :href="action.route"
-              class="btn btn-sm mb-0"
-              :class="action.color"
-              onclick="smoothToPricing('pricing-soft-ui')"
-              >{{ action.label }}</a
-            >
+            <a :href="action.route" class="btn btn-sm mb-0" :class="action.color"
+              onclick="smoothToPricing('pricing-soft-ui')">{{ action.label }}</a>
           </li>
         </ul>
       </div>

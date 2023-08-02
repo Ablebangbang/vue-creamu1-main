@@ -60,7 +60,7 @@
 
 <script setup>
 import { ref, defineEmits } from "vue";
-const id = 10;
+const id = localStorage.getItem('userId');
 const showUploadModal = ref(false);
 const fileInput = ref(null);
 const Address = `https://localhost:7098`;

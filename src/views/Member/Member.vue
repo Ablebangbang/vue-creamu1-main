@@ -54,7 +54,7 @@ import MemberData from "./Components/MemberData.vue";
 import MemberTable from "./Components/MemberTable.vue";
 import { ref } from "vue";
 
-const id = 10;
+const id = localStorage.getItem('userId');
 const member = ref([]);
 const Address = "https://localhost:7098";
 const loadMember = async () => {

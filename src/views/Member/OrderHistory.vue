@@ -88,7 +88,7 @@ const originalOrders = ref([]); // 新增 originalOrders 變數用於保存一�
 const staDate = ref(new Date());
 const endDate = ref(new Date());
 const Address = "https://localhost:7098";
-const id = 1;
+const id = localStorage.getItem('userId');
 const orders = ref([]);
 const ordersDetails = ref([]);
 
