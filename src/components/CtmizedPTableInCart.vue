@@ -148,7 +148,6 @@
         size="x-large"
         color="#e5d2ab"
         @click="SaveToCombineDetail"
-        hidden
         >Check out</v-btn
       >
     </v-col>
@@ -167,10 +166,10 @@
 
 <script>
 let routerport = "https://localhost:7098/";
-import { defineEmits } from 'vue';
+import { defineEmits } from "vue";
 
 export default {
-  emits: ['sendCPrice'],
+  emits: ["sendCPrice"],
   data() {
     return {
       //先在此宣告要存放的變數位置
@@ -207,7 +206,7 @@ export default {
         let amount = this.products[i].Info.amount;
         sum += unitP * amount;
       }
-      this.$emit("sendCPrice",sum);
+      this.$emit("sendCPrice", sum);
       return sum;
     },
     async SaveToCombineDetail() {

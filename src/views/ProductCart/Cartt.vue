@@ -37,7 +37,7 @@
   <!-- 商品title -->
 
   <!-- 商品細節 -->
-  <v-container class="custom-container">
+  <v-container style="width: 69%">
     <h3>Normal Product List</h3>
     <v-row>
       <v-col>
@@ -92,24 +92,31 @@
       </v-col>
     </v-row>
 
-    <v-divider :thickness="3"></v-divider>
+    <v-divider :thickness="2" class="border-opacity-25"></v-divider>
     <!-- 商品總價與次要選項 -->
 
-    <CtmizedPTable @sendCPrice = "childHandler"></CtmizedPTable>
-
-
-    <v-card class="mx-auto" variant="outlined">
+    <CtmizedPTable @sendCPrice="childHandler" ref="childRef"></CtmizedPTable>
+    <br />
+    <v-divider :thickness="2" class="border-opacity-100"></v-divider>
+    <v-card class="mx-auto" variant="tonal" color="#B7582A">
       <v-card-item>
         <div>
-          <div class="text-overline text-right mb-1">Normal Product List Total: {{ totalPrice }}</div>
-          <div class="text-overline text-right mb-1">Customized Product List Total: {{ CtotalPrice }}</div>
-          <div class="text-h6 text-right mb-1">Final Price:{{ totalPrice + CtotalPrice }}</div>
+          <div class="text-overline text-right mb-1">
+            Normal Product List Total: {{ totalPrice }}
+          </div>
+          <div class="text-overline text-right mb-1">
+            Customized Product List Total: {{ CtotalPrice }}
+          </div>
+          <div class="text-h6 text-right mb-1">
+            Final Price:{{ totalPrice + CtotalPrice }}
+          </div>
         </div>
       </v-card-item>
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn variant="outlined"  @click="comfirmPurchase"> Check Out </v-btn>
+        <v-btn variant="outlined" @click="comfirmPurchase"> Check Out </v-btn>
+        <v-btn variant="outlined" @click=""> C Check Out test </v-btn>
       </v-card-actions>
     </v-card>
     <!-- 購買規範說明 -->
@@ -141,9 +148,19 @@ const todData = ref([]);
 const totalPrice = ref(0);
 const CtotalPrice = ref(0);
 
+//由父組件呼叫子組建的function()
+const childRef = ref(null);
+
 //由子元件來呼叫，並把資料傳過來
-const childHandler = CPrice => {
-    CtotalPrice.value = CPrice
+const childHandler = (CPrice) => {
+  CtotalPrice.value = CPrice;
+};
+
+//由父組件呼叫子組建的function()
+function customizedPCheckOut() {
+  if (childRef.value) {
+    childRef.value.SaveToCombineDetail();
+  }
 }
 
 function initV() {
@@ -153,12 +170,12 @@ function initV() {
 
 //check member login
 /*function checkMemberLogin() {
-  let loginmemberId = 1;
-  memberIdTosql = loginmemberId;
-  if (memberIdTosql == -1) {
-    return "please sign in";
-  }
-}*/
+    let loginmemberId = 1;
+    memberIdTosql = loginmemberId;
+    if (memberIdTosql == -1) {
+      return "please sign in";
+    }
+  }*/
 
 //search data
 async function searchTODData() {
@@ -192,6 +209,7 @@ async function comfirmPurchase() {
   // let response = await axios.get(`${apiurl}${postById}${memberIdTosql}`);
 
   const res = await axios.get(`${apiurl}${getAll}`);
+  customizedPCheckOut();
   if (res.data === "None Data") {
     return "None Data";
   } else {
@@ -203,11 +221,6 @@ async function comfirmPurchase() {
 }
 
 initV();
-
 </script>
 
-<style>
-.custom-container {
-  width: 80%; /* 調整container寬度 */
-}
-</style>
+<style></style>
