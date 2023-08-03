@@ -68,6 +68,36 @@ const router = createRouter({
     },
     // 一生
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    {
+      path: "/productList",
+      component: ProductPage,
+    },
+    {
+      path: "/cartDetailDisplay",
+      component: CartDetailDisplayPage,
+    },
+    {
+      path: "/OrderSuccess",
+      component: OrderSuccess,
+    },
+    {
+      // Ma star
+      path: "/Member",
+      component: Member,
+    },
+    {
+      path: "/MemberUpdate",
+      component: MemberUpdate,
+    },
+    {
+      // end
+      path: "/OrderHistory",
+      component: OrderHistory,
+    },
+=======
+>>>>>>> CPX3
     { 
       path: '/productList', 
   component: ProductPage ,
@@ -92,6 +122,7 @@ const router = createRouter({
   path: "/OrderHistory",
   component: OrderHistory,
 },
+<<<<<<< HEAD
 =======
     {
       path: "/productList",
@@ -120,6 +151,9 @@ const router = createRouter({
       component: OrderHistory,
     },
 >>>>>>> origin/CPX3
+=======
+>>>>>>> origin/nassim
+>>>>>>> CPX3
     {
       path: "/pages/landing-pages/about-us",
       name: "about",
