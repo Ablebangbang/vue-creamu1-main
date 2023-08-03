@@ -53,6 +53,8 @@ function getArrowColor() {
   }
 }
 
+
+const localStorageLength = ref(localStorage.length);
 const dellocalStorage = () => {
   localStorage.removeItem("userId");
 }
@@ -597,7 +599,7 @@ watch(
               aria-labelledby="dropdownMenuDocs">
               <div class="d-none d-lg-block">
                 <ul class="list-group">
-                  <li class="nav-item list-group-item border-0 p-0">
+                  <li v-if="localStorageLength === 0" class="nav-item list-group-item border-0 p-0">
                     <a class="dropdown-item py-2 ps-3 border-radius-md"
                       href=" http://localhost:3000/pages/landing-pages/basic" @click="dellocalStorage">
                       <h6
@@ -607,7 +609,7 @@ watch(
                       <span class="text-sm">Login/Register</span>
                     </a>
                   </li>
-                  <li class="nav-item list-group-item border-0 p-0">
+                  <li v-if="localStorageLength !== 0" class="nav-item list-group-item border-0 p-0">
                     <a class="dropdown-item py-2 ps-3 border-radius-md" href="http://localhost:3000/Member">
                       <h6
                         class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
@@ -616,7 +618,7 @@ watch(
                       <span class="text-sm">Member profile</span>
                     </a>
                   </li>
-                  <li class="nav-item list-group-item border-0 p-0">
+                  <li v-if="localStorageLength !== 0" class="nav-item list-group-item border-0 p-0">
                     <a class="dropdown-item py-2 ps-3 border-radius-md" href="http://localhost:3000/cartDetailDisplay">
                       <h6
                         class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
@@ -625,13 +627,23 @@ watch(
                       <span class="text-sm">Shopping Cart</span>
                     </a>
                   </li>
-                  <li class="nav-item list-group-item border-0 p-0">
+                  <li v-if="localStorageLength !== 0" class="nav-item list-group-item border-0 p-0">
                     <a class="dropdown-item py-2 ps-3 border-radius-md" href="http://localhost:3000/OrderHistory">
                       <h6
                         class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                         歷史訂單
                       </h6>
                       <span class="text-sm">Order History</span>
+                    </a>
+                  </li>
+                  <li v-if="localStorageLength !== 0" class="nav-item list-group-item border-0 p-0">
+                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="http://localhost:3000/"
+                      @click="dellocalStorage">
+                      <h6
+                        class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                        登出
+                      </h6>
+                      <span class="text-sm">Log Out</span>
                     </a>
                   </li>
                   <!-- <li class="nav-item list-group-item border-0 p-0">
@@ -654,7 +666,7 @@ watch(
               </div>
               <div class="row d-lg-none">
                 <div class="col-md-12 g-0">
-                  <a class="dropdown-item py-2 ps-3 border-radius-md"
+                  <a v-if="localStorageLength === 0" class="dropdown-item py-2 ps-3 border-radius-md"
                     href="http://localhost:3000/pages/landing-pages/basic">
                     <h6
                       class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"
@@ -663,26 +675,37 @@ watch(
                     </h6>
                     <span class="text-sm">Login/Register</span>
                   </a>
-                  <a class="dropdown-item py-2 ps-3 border-radius-md" href="http://localhost:3000/Member">
+                  <a v-if="localStorageLength !== 0" class="dropdown-item py-2 ps-3 border-radius-md"
+                    href="http://localhost:3000/Member">
                     <h6
                       class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                       會員資訊
                     </h6>
                     <span class="text-sm">Member Profile</span>
                   </a>
-                  <a class="dropdown-item py-2 ps-3 border-radius-md" href="http://localhost:3000/OrderHistory">
+                  <a v-if="localStorageLength !== 0" class="dropdown-item py-2 ps-3 border-radius-md"
+                    href="http://localhost:3000/OrderHistory">
                     <h6
                       class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                       歷史訂單
                     </h6>
                     <span class="text-sm">Order History</span>
                   </a>
-                  <a class="dropdown-item py-2 ps-3 border-radius-md" href="http://localhost:3000/cartDetailDisplay">
+                  <a v-if="localStorageLength !== 0" class="dropdown-item py-2 ps-3 border-radius-md"
+                    href="http://localhost:3000/cartDetailDisplay">
                     <h6
                       class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                       購物車
                     </h6>
                     <span class="text-sm">Shopping Cart</span>
+                  </a>
+                  <a v-if="localStorageLength !== 0" class="dropdown-item py-2 ps-3 border-radius-md"
+                    href="http://localhost:3000/" @click="dellocalStorage">
+                    <h6
+                      class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                      登出
+                    </h6>
+                    <span class="text-sm">Log Out</span>
                   </a>
                   <!-- <a
                     class="dropdown-item py-2 ps-3 border-radius-md"

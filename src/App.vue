@@ -24,7 +24,7 @@ import DefaultFooter from "../src/examples/footers/FooterDefault.vue";
   <div class="container position-sticky z-index-sticky top-0">
     <div class="row">
       <div class="col-12">
-        <NavbarDefault :sticky="true" />
+        <NavbarDefault :sticky="true" :key="$route.fullPath" />
       </div>
     </div>
   </div>
