@@ -1,6 +1,6 @@
 <template>
   <div class="mt-5">
-    <button type="button" class="btn btn-outline-warning position-relative">
+    <!-- <button type="button" class="btn btn-outline-warning position-relative">
       ~ VIP ~
       <span
         class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
@@ -8,31 +8,25 @@
         Level{{ member.level }}
         <span class="visually-hidden">unread messages</span>
       </span>
-    </button>
+    </button> -->
     <div class="image-container">
       <img :src="`https://localhost:7098/imgs/${member.image}`" @click="openUploadModal" />
       <div class="hover-image">
-        <img
-          type="button"
+        <img type="button"
           src="https://png.pngtree.com/png-vector/20190725/ourmid/pngtree-vector-camera-icon-png-image_1576543.jpg"
-          data-bs-toggle="modal"
-          data-bs-target="#exampleModal"
-          data-bs-whatever="@getbootstrap"
-          @click="openUploadModal"
-        />
+          data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap"
+          @click="openUploadModal" />
       </div>
     </div>
     <label>
-      <h2>{{ member.name }}</h2>
+      <h2>{{ member.name }} </h2>
     </label>
+    <v-col cols="auto">
+      <v-btn density="default" size="x-large" block rounded="xl" color="#FFEE58">Level{{ member.level
+      }}</v-btn>
+    </v-col>
     <!-- 上傳照片視窗 -->
-    <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -49,23 +43,14 @@
                 <label for="formFile" class="form-label">請選擇照片</label>
                 <input class="form-control" type="file" ref="fileInput" @change="validatePhoto" />
                 <!-- 顯示錯誤訊息 -->
-                <p
-                  v-if="errorMessage"
-                  class="alert alert-danger mt-3"
-                  role="alert"
-                >{{ errorMessage }}</p>
+                <p v-if="errorMessage" class="alert alert-danger mt-3" role="alert">{{ errorMessage }}</p>
               </div>
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-            <button
-              type="button"
-              class="btn btn-primary"
-              :disabled="errorMessage !== ''"
-              @click="uploadPhoto"
-              data-bs-dismiss="modal"
-            >確認</button>
+            <button type="button" class="btn btn-primary" :disabled="errorMessage !== ''" @click="uploadPhoto"
+              data-bs-dismiss="modal">確認</button>
           </div>
         </div>
       </div>
@@ -73,9 +58,9 @@
   </div>
 </template>
 
- <script setup>
+<script setup>
 import { ref, defineEmits } from "vue";
-const id = 10;
+const id = localStorage.getItem('userId');
 const showUploadModal = ref(false);
 const fileInput = ref(null);
 const Address = `https://localhost:7098`;
@@ -186,15 +171,19 @@ label {
   align-items: left;
   margin-top: 25px;
 }
+
 .preview-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 200px; /* 設定預覽容器的高度 */
+  height: 200px;
+  /* 設定預覽容器的高度 */
 }
 
 .preview-image {
-  max-width: 100%; /* 限制預覽圖片的最大寬度 */
-  max-height: 100%; /* 限制預覽圖片的最大高度 */
+  max-width: 100%;
+  /* 限制預覽圖片的最大寬度 */
+  max-height: 100%;
+  /* 限制預覽圖片的最大高度 */
 }
 </style>

@@ -1,9 +1,10 @@
 <script setup>
-import { onMounted,ref } from "vue";
+import { onMounted, ref } from "vue";
 
 // example components
 import DefaultNavbar from "@/examples/navbars/NavbarDefault.vue";
 import Header from "@/examples/Header.vue";
+import router from "../../../router/index.js";
 
 //Vue Material Kit 2 components
 import MaterialInput from "@/components/MaterialInput.vue";
@@ -13,39 +14,73 @@ import MaterialButton from "@/components/MaterialButton.vue";
 // material-input
 import setMaterialInput from "@/assets/js/material-input";
 
-const email =ref('');
-const password =ref('');
+const emailValue = ref('');
+const passwordValue = ref('');
+const id = ref();
+const showErrorMessage = ref(false)
+const Address = "https://localhost:7098";
+const storedUserId = ref()
+
+const setEmailValue = event => {
+  emailValue.value = event.target.value;
+}
+
+const setPasswordValue = event => {
+  passwordValue.value = event.target.value;
+}
+
 
 onMounted(() => {
   setMaterialInput();
 });
 //登入
-function login() {
+const login = async () => {
   // Perform login using backend API (PHP in this case)
-  const formData = new FormData();
-  formData.append('username', email.value);
-  formData.append('password', password.value);
-  
-  
-  console.log(email.value);
-  fetch('login.php', {
+  const diet = {
+    Email: email.value,
+    Password: password.value
+  }
+
+  const res = await fetch(`${Address}/api/MembersAPI/Sign`, {
     method: 'POST',
-    body: formData,
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.success) {
-      // Handle successful login, e.g., redirect to another page
-      alert('Login successful!');
-      // You can also use Vue Router to handle page navigation
-    } else {
-      loginError.value = data.message;
+    body: JSON.stringify(diet),
+    headers: {
+      "Content-Type": "application/json"
     }
   })
-  .catch(error => {
-    console.error('Error:', error);
-    loginError.value = 'An error occurred while logging in.';
-  });
+
+  if (res.ok) {
+    // 處理成功的回應
+    const responseJson = await res.text();
+    console.log("API 返回的字串:", responseJson);
+
+    if (responseJson !== "登入失敗!") {
+      // 將 id 存儲到 localStorage 中
+      localStorage.setItem("userId", responseJson)
+
+      // 从 localStorage 获取存储的值并输出
+      const storedUserId = localStorage.getItem("userId");
+      console.log("存储在 localStorage 的 userId:", storedUserId);
+
+      // 設置 id 和 showErrorMessage
+      id.value = responseJson
+      console.log(id.value);
+      showErrorMessage.value = false
+      router.push({
+        path: "/"
+      });
+
+
+    } else {
+      showErrorMessage.value = true
+    }
+
+    id.value = 0
+  } else {
+    const errorText = await res.text();
+    console.log("錯誤內容:" + errorText);
+  }
+
 }
 
 
@@ -53,28 +88,18 @@ function login() {
 <template>
   <DefaultNavbar transparent />
   <Header>
-    <div
-      class="page-header align-items-start min-vh-100"
-      :style="{
-        backgroundImage:
-          'url(https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80)'
-      }"
-      loading="lazy"
-    >
+    <div class="page-header align-items-start min-vh-100" :style="{
+      backgroundImage:
+        'url(https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80)'
+    }" loading="lazy">
       <span class="mask bg-gradient-dark opacity-6"></span>
       <div class="container my-auto">
         <div class="row">
           <div class="col-lg-4 col-md-8 col-12 mx-auto">
             <div class="card z-index-0 fadeIn3 fadeInBottom">
-              <div
-                class="card-header p-0 position-relative mt-n4 mx-3 z-index-2"
-              >
-                <div
-                  class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1"
-                >
-                  <h4
-                    class="text-white font-weight-bolder text-center mt-2 mb-0"
-                  >
+              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1">
+                  <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">
                     Sign in
                   </h4>
                   <div class="row mt-3">
@@ -97,47 +122,24 @@ function login() {
                 </div>
               </div>
               <div class="card-body">
+                <v-alert v-if="showErrorMessage" text="帳號密碼錯誤!" type="error"></v-alert>
                 <!-- <form role="form" class="text-start"> -->
-                  <MaterialInput
-                    id="email"
-                    class="input-group-outline my-3"
-                    :label="{ text: 'Email', class: 'form-label' }"
-                    type="email"
-                    v-model="email"
-                  />
-                  <MaterialInput
-                    id="password"
-                    class="input-group-outline mb-3"
-                    :label="{ text: 'Password', class: 'form-label' }"
-                    type="password"
-                    v-model="password"
-                  />
-                  <MaterialSwitch
-                    class="d-flex align-items-center mb-3"
-                    id="rememberMe"
-                    labelClass="mb-0 ms-3"
-                    checked
-                    >Remember me</MaterialSwitch
-                  >
+                <MaterialInput id="email" class="input-group-outline my-3" :label="{ text: 'Email', class: 'form-label' }"
+                  type="email" :value="emailValue" @input="setEmailValue" />
+                <MaterialInput id="password" class="input-group-outline mb-3"
+                  :label="{ text: 'Password', class: 'form-label' }" type="password" :value="passwordValue"
+                  @input="setPasswordValue" />
+                <MaterialSwitch class="d-flex align-items-center mb-3" id="rememberMe" labelClass="mb-0 ms-3" checked>
+                  Remember me</MaterialSwitch>
 
-                  <div class="text-center">
-                    <MaterialButton
-                      class="my-4 mb-2"
-                      variant="gradient"
-                      color="success"
-                      fullWidth
-                      @click="login"
-                      >Sign in</MaterialButton
-                    >
-                  </div>
-                  <p class="mt-4 text-sm text-center">
-                    Don't have an account?
-                    <a
-                      href="#"
-                      class="text-success text-gradient font-weight-bold"
-                      >Sign up</a
-                    >
-                  </p>
+                <div class="text-center">
+                  <MaterialButton class="my-4 mb-2" variant="gradient" color="success" fullWidth @click="login">Sign in
+                  </MaterialButton>
+                </div>
+                <p class="mt-4 text-sm text-center">
+                  Don't have an account?
+                  <a href="#" class="text-success text-gradient font-weight-bold">Sign up</a>
+                </p>
                 <!-- </form> -->
               </div>
             </div>
@@ -148,55 +150,28 @@ function login() {
         <div class="container">
           <div class="row align-items-center justify-content-lg-between">
             <div class="col-12 col-md-6 my-auto">
-              <div
-                class="copyright text-center text-sm text-white text-lg-start"
-              >
+              <div class="copyright text-center text-sm text-white text-lg-start">
                 © {{ new Date().getFullYear() }}, made with
                 <i class="fa fa-heart" aria-hidden="true"></i> by
-                <a
-                  href="https://www.creative-tim.com"
-                  class="font-weight-bold text-white"
-                  target="_blank"
-                  >CreamU</a
-                >
+                <a href="https://www.creative-tim.com" class="font-weight-bold text-white" target="_blank">CreamU</a>
                 for u.
               </div>
             </div>
             <div class="col-12 col-md-6">
-              <ul
-                class="nav nav-footer justify-content-center justify-content-lg-end"
-              >
+              <ul class="nav nav-footer justify-content-center justify-content-lg-end">
                 <li class="nav-item">
-                  <a
-                    href="https://www.creative-tim.com"
-                    class="nav-link text-white"
-                    target="_blank"
-                    >Creative Tim</a
-                  >
+                  <a href="https://www.creative-tim.com" class="nav-link text-white" target="_blank">Creative Tim</a>
                 </li>
                 <li class="nav-item">
-                  <a
-                    href="https://www.creative-tim.com/presentation"
-                    class="nav-link text-white"
-                    target="_blank"
-                    >About Us</a
-                  >
+                  <a href="https://www.creative-tim.com/presentation" class="nav-link text-white" target="_blank">About
+                    Us</a>
                 </li>
                 <li class="nav-item">
-                  <a
-                    href="https://www.creative-tim.com/blog"
-                    class="nav-link text-white"
-                    target="_blank"
-                    >Blog</a
-                  >
+                  <a href="https://www.creative-tim.com/blog" class="nav-link text-white" target="_blank">Blog</a>
                 </li>
                 <li class="nav-item">
-                  <a
-                    href="https://www.creative-tim.com/license"
-                    class="nav-link pe-0 text-white"
-                    target="_blank"
-                    >License</a
-                  >
+                  <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-white"
+                    target="_blank">License</a>
                 </li>
               </ul>
             </div>

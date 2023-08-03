@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="container">
     <br />
     <p id="title">歷史紀錄</p>
     <div class="row mb-5">
-      <div class="col-3">
+      <div class="col-2">
         <p class="pt-1 mt-1 mx-5 text-end" style="font-family: Noto Sans TC; sans-serif;">訂單成立日期 :</p>
       </div>
       <div class="col-4">
@@ -88,7 +88,7 @@ const originalOrders = ref([]); // 新增 originalOrders 變數用於保存一�
 const staDate = ref(new Date());
 const endDate = ref(new Date());
 const Address = "https://localhost:7098";
-const id = 1;
+const id = localStorage.getItem('userId');
 const orders = ref([]);
 const ordersDetails = ref([]);
 
