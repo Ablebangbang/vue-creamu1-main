@@ -20,16 +20,8 @@ onMounted(() => {
 });
 </script>
 <template>
-  <BaseLayout
-    title="Forms"
-    :breadcrumb="[{ label: 'Input Areas', route: '#' }, { label: 'Forms' }]"
-  >
-    <View
-      title="Form simple"
-      :code="formSimpleCode"
-      id="form-simple"
-      height="600"
-    >
+  <BaseLayout title="Forms" :breadcrumb="[{ label: 'Input Areas', route: '#' }, { label: 'Forms' }]">
+    <View title="Form simple" :code="formSimpleCode" id="form-simple" height="600">
       <FormSimple />
     </View>
   </BaseLayout>

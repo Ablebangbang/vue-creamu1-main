@@ -39,6 +39,7 @@ import ElDropdowns from "../layouts/sections/elements/dropdowns/DropdownsView.vu
 import ElProgressBars from "../layouts/sections/elements/progress-bars/ProgressBarsView.vue";
 import ElToggles from "../layouts/sections/elements/toggles/TogglesView.vue";
 import ElTypography from "../layouts/sections/elements/typography/TypographyView.vue";
+import Signup from "../views/LandingPages/SignIn/Signin.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -66,6 +67,7 @@ const router = createRouter({
       component: Cart,
     },
     // 一生
+<<<<<<< HEAD
     {
       path: "/productList",
       component: ProductPage,
@@ -92,6 +94,32 @@ const router = createRouter({
       path: "/OrderHistory",
       component: OrderHistory,
     },
+=======
+    { 
+      path: '/productList', 
+  component: ProductPage ,
+},
+    { 
+  path: '/cartDetailDisplay', 
+  component: CartDetailDisplayPage ,
+},
+{ // Ma star
+  path: "/Member",
+  component: Member,
+},
+{
+  path: "/MemberUpdate",
+  component: MemberUpdate,
+},
+{
+  path: "/Signup",
+  component: Signup,
+},
+{ // end
+  path: "/OrderHistory",
+  component: OrderHistory,
+},
+>>>>>>> origin/nassim
     {
       path: "/pages/landing-pages/about-us",
       name: "about",

@@ -19,7 +19,7 @@ import DefaultFooter from "../src/examples/footers/FooterDefault.vue";
 </script>
 
 <template>
-   <h2 class="row">
+  <h2 class="row">
   </h2>
   <div class="container position-sticky z-index-sticky top-0">
     <div class="row">

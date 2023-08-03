@@ -138,7 +138,7 @@ const login = async () => {
                 </div>
                 <p class="mt-4 text-sm text-center">
                   Don't have an account?
-                  <a href="#" class="text-success text-gradient font-weight-bold">Sign up</a>
+                  <a href="http://localhost:3000/Signup" class="text-success text-gradient font-weight-bold">Sign up</a>
                 </p>
                 <!-- </form> -->
               </div>

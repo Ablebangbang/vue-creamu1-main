@@ -32,9 +32,11 @@
             <label class="form-label">照片 :</label>
             <input v-model="member.image" type="text" name="image" class="form-control" />
           </div>
-          <v-col cols="12" md="10" class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4">
+          <v-col cols="12" md="10" class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4"
+            style="z-index: 999999;">
             <v-text-field label="生日 :" v-model="member.birthday">
-              <VueDatePicker v-model="member.birthday" :enable-time-picker="false" :format-locale="zhTW" />
+              <VueDatePicker v-model="member.birthday" :enable-time-picker="false" :format-locale="zhTW"
+                style="z-index: 999999;" />
             </v-text-field>
           </v-col>
           <div class="mb-3 visually-hidden">
@@ -618,8 +620,9 @@ async function handleSubmit() {
       // 處理失敗的回應
       console.log("請求失敗");
     }
-  } catch (error) {
-    console.error("請求錯誤", error);
+  } catch {
+    const errorText = await res.text();
+    console.log("錯誤內容:" + errorText);
   }
 }
 </script>
