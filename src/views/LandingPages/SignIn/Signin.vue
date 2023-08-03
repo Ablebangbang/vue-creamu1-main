@@ -33,7 +33,7 @@
                         <a href="http://localhost:3000/pages/landing-pages/basic"
                             :class="{ 'is-invalid': !isPasswordValid || Password !== ConfirmPassword }">登入</a>
                     </div>
-                    <input type="button" value="註冊" @click.prevent="createMember">
+                    <input type="button" value="註冊" @click.prevent="CreateMember">
                 </form>
             </div>
         </div>
@@ -42,6 +42,7 @@
 
 <script setup>
 import { ref, watch } from 'vue'
+import router from '../../../router';
 
 const email = ref('')
 const Password = ref('')
@@ -51,6 +52,44 @@ const Address = "https://localhost:7098";
 const isEmailValid = ref(true)
 const isPasswordValid = ref(true)
 
+const CreateMember = async () => {
+
+    const dite = {
+        Name: '',
+        Telephone: '',
+        Password: Password.value,
+        Email: email.value,
+        Address: '',
+        Birthday: null,
+        Image: '',
+        Notes: '',
+    }
+    console.log(JSON.stringify(dite));
+    try {
+        const res = await fetch(`${Address}/api/MembersAPI`, {
+            method: 'POST',
+            body: JSON.stringify(dite),
+            headers: {
+                "content-type": "application/json"
+            }
+        })
+        if (res.ok) {
+            // 處理成功的回應
+            console.log("請求成功");
+            // check.value = false
+            router.push({
+                path: "/pages/landing-pages/basic"
+            });
+        } else {
+            // 處理失敗的回應
+            console.log("請求失敗");
+        }
+    }
+    catch (error) {
+        const errorText = await error;
+        console.log('錯誤內容:' + errorText);
+    }
+}
 const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
