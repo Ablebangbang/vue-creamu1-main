@@ -1,11 +1,13 @@
 <template>
   <!-- <v-container> -->
   <div>
-    <h3>Customized Product List</h3>
-    <hr />
     <v-row justify="center">
+      <v-col cols="10" align="start">
+        <h3>Customized Product List</h3>
+        <hr />
+      </v-col>
       <div v-if="products.length == 0">
-        <v-col cols="auto" align="center">
+        <v-col cols="10" align="center">
           <br />
           <br />
           <br />
@@ -17,127 +19,133 @@
             >Buy Now</v-btn
           >
         </v-col>
-        <v-col cols="12">
-          <h3>Opps! No Product In Shopping Cart!</h3>
+        <v-col cols="10" align="center">
+          <h3>Opps! No Customized Product In Shopping Cart!</h3>
         </v-col>
       </div>
     </v-row>
+    <v-row justify="center">
+      <v-col cols="10">
+        <v-expansion-panels>
+          <!-- 動態新增-起始 -->
+          <v-expansion-panel v-for="(product, index) in products" :key="index">
+            <v-expansion-panel-title v-slot="{ open }">
+              <v-row no-gutters align="center">
+                <v-col cols="1" class="d-flex justify-center">
+                  #{{ index + 1 }}
+                </v-col>
+                <v-col cols="3" justify="center">
+                  <v-img
+                    :src="product.Img"
+                    width="100%"
+                    class="bg-grey-lighten-2"
+                  ></v-img>
+                </v-col>
+                <v-col cols="3" class="d-flex justify-start justify-center">
+                  單價:{{ product.Info.unitprice }}元
+                </v-col>
+                <v-col cols="2" class="d-flex justify-start justify-center">
+                  數量:{{ foramount[index].Info.amount }}
+                </v-col>
+                <v-col cols="3" class="d-flex justify-start justify-center">
+                  小計:{{ product.Info.unitprice * product.Info.amount }}元
+                </v-col>
+              </v-row>
+            </v-expansion-panel-title>
 
-    <v-expansion-panels>
-      <!-- 動態新增-起始 -->
-      <v-expansion-panel v-for="(product, index) in products" :key="index">
-        <v-expansion-panel-title v-slot="{ open }">
-          <v-row no-gutters align="center">
-            <v-col cols="1" class="d-flex justify-center">
-              #{{ index + 1 }}
-            </v-col>
-            <v-col cols="3" justify="center">
-              <v-img
-                :src="product.Img"
-                width="100%"
-                class="bg-grey-lighten-2"
-              ></v-img>
-            </v-col>
-            <v-col cols="3" class="d-flex justify-start justify-center">
-              單價:{{ product.Info.unitprice }}元
-            </v-col>
-            <v-col cols="2" class="d-flex justify-start justify-center">
-              數量:{{ foramount[index].Info.amount }}
-            </v-col>
-            <v-col cols="3" class="d-flex justify-start justify-center">
-              小計:{{ product.Info.unitprice * product.Info.amount }}元
-            </v-col>
-          </v-row>
-        </v-expansion-panel-title>
+            <v-expansion-panel-text>
+              <v-container>
+                <v-row no-gutters align="auto">
+                  <v-col>
+                    <v-table class="text-center">
+                      <thead>
+                        <tr>
+                          <th class="text-right padding-right">Body Part</th>
+                          <th class="text-center">ComponentId</th>
+                          <th class="text-center">SubTotal</th>
+                          <th class="text-center">=</th>
+                          <th class="text-center">Model</th>
+                          <th class="text-center">Model-Price</th>
+                          <th class="text-center">+</th>
+                          <th class="text-center">Material</th>
+                          <th class="text-center">Material-Price</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="index in 6" :key="index">
+                          <td class="text-right">
+                            {{ product.ComDetail[index - 1].type }}
+                          </td>
+                          <!--部位名稱-->
+                          <td>{{ product.ComDetail[index - 1].comId }}</td>
+                          <!--該部位的componentId-->
+                          <td>{{ product.ComDetail[index - 1].comPrice }}</td>
+                          <!--該部位的component的價格-->
+                          <td>=</td>
+                          <td>{{ product.ComDetail[index - 1].moId }}</td>
+                          <!--該部位的modelId-->
+                          <td>{{ product.ComDetail[index - 1].moPrice }}</td>
+                          <!--該部位的model的價格-->
+                          <td>+</td>
+                          <td>{{ product.ComDetail[index - 1].maId }}</td>
+                          <!--該部位的materilaId-->
+                          <td>{{ product.ComDetail[index - 1].maPrice }}</td>
+                          <!--該部位的materila的價格-->
+                        </tr>
+                      </tbody>
+                    </v-table>
+                  </v-col>
+                </v-row>
+                <v-row no-gutters align="center">
+                  <v-spacer></v-spacer>
 
-        <v-expansion-panel-text>
-          <v-container>
-            <v-row no-gutters align="auto">
-              <v-col>
-                <v-table class="text-center">
-                  <thead>
-                    <tr>
-                      <th class="text-right padding-right">Body Part</th>
-                      <th class="text-center">ComponentId</th>
-                      <th class="text-center">SubTotal</th>
-                      <th class="text-center">=</th>
-                      <th class="text-center">Model</th>
-                      <th class="text-center">Model-Price</th>
-                      <th class="text-center">+</th>
-                      <th class="text-center">Material</th>
-                      <th class="text-center">Material-Price</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="index in 6" :key="index">
-                      <td class="text-right">
-                        {{ product.ComDetail[index - 1].type }}
-                      </td>
-                      <!--部位名稱-->
-                      <td>{{ product.ComDetail[index - 1].comId }}</td>
-                      <!--該部位的componentId-->
-                      <td>{{ product.ComDetail[index - 1].comPrice }}</td>
-                      <!--該部位的component的價格-->
-                      <td>=</td>
-                      <td>{{ product.ComDetail[index - 1].moId }}</td>
-                      <!--該部位的modelId-->
-                      <td>{{ product.ComDetail[index - 1].moPrice }}</td>
-                      <!--該部位的model的價格-->
-                      <td>+</td>
-                      <td>{{ product.ComDetail[index - 1].maId }}</td>
-                      <!--該部位的materilaId-->
-                      <td>{{ product.ComDetail[index - 1].maPrice }}</td>
-                      <!--該部位的materila的價格-->
-                    </tr>
-                  </tbody>
-                </v-table>
-              </v-col>
-            </v-row>
-            <v-row no-gutters align="center">
-              <v-spacer></v-spacer>
+                  <v-col cols="3"> </v-col>
 
-              <v-col cols="3"> </v-col>
+                  <v-divider vertical class="mx-4"></v-divider>
 
-              <v-divider vertical class="mx-4"></v-divider>
-
-              <v-col cols="1">
-                <p class="text-field-custom">數量：</p>
-              </v-col>
-              <v-col cols="3">
-                <v-text-field v-model="foramount[index].Info.amount" readonly>
-                  <template v-slot:append>
-                    <v-btn @click="increment" variant="text" icon>
-                      <v-icon size="small">mdi-plus</v-icon>
-                    </v-btn>
-                  </template>
-                  <template v-slot:prepend>
-                    <v-btn @click="decrement" variant="text" icon>
-                      <v-icon size="small">mdi-minus</v-icon>
-                    </v-btn>
-                  </template>
-                </v-text-field>
-              </v-col>
-            </v-row>
-          </v-container>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn
-              :id="index"
-              variant="text"
-              color="#B7582A"
-              @click="deleteItem(index)"
-            >
-              Delete
-            </v-btn>
-          </v-card-actions>
-        </v-expansion-panel-text>
-      </v-expansion-panel>
-    </v-expansion-panels>
+                  <v-col cols="1">
+                    <p class="text-field-custom">數量：</p>
+                  </v-col>
+                  <v-col cols="3">
+                    <v-text-field
+                      v-model="foramount[index].Info.amount"
+                      readonly
+                    >
+                      <template v-slot:append>
+                        <v-btn @click="increment" variant="text" icon>
+                          <v-icon size="small">mdi-plus</v-icon>
+                        </v-btn>
+                      </template>
+                      <template v-slot:prepend>
+                        <v-btn @click="decrement" variant="text" icon>
+                          <v-icon size="small">mdi-minus</v-icon>
+                        </v-btn>
+                      </template>
+                    </v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  :id="index"
+                  variant="text"
+                  color="#B7582A"
+                  @click="deleteItem(index)"
+                >
+                  Delete
+                </v-btn>
+              </v-card-actions>
+            </v-expansion-panel-text>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </v-col>
+    </v-row>
   </div>
   <!-- 動態新增-結束 -->
   <hr />
   <v-row justify="end">
-    <v-col cols="auto">
+    <v-col cols="10" align="end">
       <br />
       <h5>Customized Product List Total:{{ TotalPrice() }}</h5>
     </v-col>
@@ -290,7 +298,7 @@ export default {
         //response return的值
         const result = await response.text();
         //清除LocalStorage裡的客製化商品清單
-        // localStorage.removeItem("addItemList");
+        localStorage.removeItem("addItemList");
         console.log(result);
 
         // const response2 = await fetch(

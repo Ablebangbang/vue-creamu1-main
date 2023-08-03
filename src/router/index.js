@@ -6,8 +6,9 @@ import Message from "../views/customerzied/Message.vue";
 import WebGL from "../views/customerzied/CustomizedP.vue";
 import Cart from "../views/customerzied/Cart.vue";
 // 一生
-import ProductPage from '../views/ProductCart/productSurvey.vue';
-import CartDetailDisplayPage from '../views/ProductCart/Cartt.vue'
+import ProductPage from "../views/ProductCart/productSurvey.vue";
+import CartDetailDisplayPage from "../views/ProductCart/Cartt.vue";
+import OrderSuccess from "../views/ProductCart/OrderSuccess.vue";
 
 // Ma
 import Member from "../views/Member/Member.vue";
@@ -49,7 +50,7 @@ const router = createRouter({
     },
     // 佩璇
     {
-path:"/Review", //路徑
+      path: "/Review", //路徑
       component: Review, //對應要載入的元件
     },
     {
@@ -62,29 +63,35 @@ path:"/Review", //路徑
     },
     {
       path: "/cart",
-component: Cart,
+      component: Cart,
     },
     // 一生
-    { 
-      path: '/productList', 
-  component: ProductPage ,
-},
-    { 
-  path: '/cartDetailDisplay', 
-  component: CartDetailDisplayPage ,
-},
-{ // Ma star
-  path: "/Member",
-  component: Member,
-},
-{
-  path: "/MemberUpdate",
-  component: MemberUpdate,
-},
-{ // end
-  path: "/OrderHistory",
-  component: OrderHistory,
-},
+    {
+      path: "/productList",
+      component: ProductPage,
+    },
+    {
+      path: "/cartDetailDisplay",
+      component: CartDetailDisplayPage,
+    },
+    {
+      path: "/OrderSuccess",
+      component: OrderSuccess,
+    },
+    {
+      // Ma star
+      path: "/Member",
+      component: Member,
+    },
+    {
+      path: "/MemberUpdate",
+      component: MemberUpdate,
+    },
+    {
+      // end
+      path: "/OrderHistory",
+      component: OrderHistory,
+    },
     {
       path: "/pages/landing-pages/about-us",
       name: "about",
