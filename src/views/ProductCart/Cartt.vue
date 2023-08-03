@@ -32,65 +32,88 @@
 
   <!-- 商品細節 -->
   <v-container class="custom-container">
-    <h3>Normal Product List</h3>
     <v-row justify="center">
-      <v-col>
-        <v-table class="table">
-          <thead>
-            <tr>
-              <th scope="col">名稱</th>
-              <th scope="col">商品描述</th>
-              <th scope="col">單價</th>
-              <th scope="col">數量</th>
-              <th scope="col">小計</th>
-              <th scope="col">修改</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="i in todData">
-              <td>{{ i.pName }}</td>
-              <td>{{ i.descript }}</td>
-              <td>{{ i.unitPrice }}</td>
-              <td>{{ i.qty }}</td>
-              <td style="color: rgb(218, 120, 0)">
-                {{ i.subtotal }}
-              </td>
-              <td>
-                <v-btn
-                  :id="index"
-                  variant="text"
-                  color="#B7582A"
-                  @click="delTOD(i.id)"
-                >
-                  Delete
-                </v-btn>
-              </td>
-            </tr>
-          </tbody>
-        </v-table>
+      <v-col cols="10">
+        <h3>Normal Product List</h3>
       </v-col>
+      <div v-if="todData.length == 0">
+        <v-col cols="10" align="center">
+          <br />
+          <br />
+          <br />
+          <v-btn
+            href="http://localhost:3000/productList"
+            prepend-icon="mdi-cart-arrow-down"
+            size="x-large"
+            color="#B7582A"
+            >Buy Now</v-btn
+          >
+        </v-col>
+        <v-col cols="10" align="center">
+          <h3>Opps! No Normal Product In Shopping Cart!</h3>
+        </v-col>
+      </div>
+      <div v-else>
+        <v-col cols="12" align-self="center">
+          <v-table class="table">
+            <thead>
+              <tr>
+                <th scope="col">名稱</th>
+                <th scope="col">商品描述</th>
+                <th scope="col">單價</th>
+                <th scope="col">數量</th>
+                <th scope="col">小計</th>
+                <th scope="col">修改</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="i in todData">
+                <td>{{ i.pName }}</td>
+                <td>{{ i.descript }}</td>
+                <td>{{ i.unitPrice }}</td>
+                <td>{{ i.qty }}</td>
+                <td style="color: rgb(218, 120, 0)">
+                  {{ i.subtotal }}
+                </td>
+                <td>
+                  <v-btn
+                    :id="index"
+                    variant="text"
+                    color="#B7582A"
+                    @click="delTOD(i.id)"
+                  >
+                    Delete
+                  </v-btn>
+                </td>
+              </tr>
+            </tbody>
+          </v-table>
+        </v-col>
+      </div>
     </v-row>
     <v-row justify="end">
-      <v-col cols="auto">
+      <v-col cols="10" align="end">
         <h5>Normal Product List Total: {{ totalPrice }}</h5>
       </v-col>
     </v-row>
     <v-row justify="end">
-      <v-col cols="12" align="end">
-        <v-btn
-          href="http://localhost:3000/productList"
-          size="x-large"
-          color="#B7582A"
-          >Buy More Normal Product</v-btn
-        >
+      <v-col cols="10" align="end">
+        <div v-if="todData.length != 0">
+          <v-btn
+            href="http://localhost:3000/productList"
+            size="x-large"
+            color="#B7582A"
+            >Buy More Normal Product</v-btn
+          >
+        </div>
       </v-col>
     </v-row>
-
     <v-divider
       :thickness="2"
       color="#B7582A"
       class="border-opacity-25"
     ></v-divider>
+
     <!-- 商品總價與次要選項 -->
 
     <CtmizedPTable @sendCPrice="childHandler" ref="childRef"></CtmizedPTable>
@@ -102,10 +125,10 @@
     <v-card class="mx-auto" variant="tonal" color="#422e13">
       <v-card-item>
         <div>
-          <div class="text-overline text-right mb-1">
+          <div class="text-h7 text-right mb-1">
             Normal Product List Total: {{ totalPrice }}
           </div>
-          <div class="text-overline text-right mb-1">
+          <div class="text-h7 text-right mb-1">
             Customized Product List Total: {{ CtotalPrice }}
           </div>
           <div class="text-h6 text-right mb-1">
@@ -116,14 +139,16 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn
-          variant="elevated"
-          @click="comfirmPurchase"
-          size="x-large"
-          color="#B7582A"
-        >
-          Check Out
-        </v-btn>
+        <div v-if="totalPrice != 0 || CtotalPrice != 0">
+          <v-btn
+            variant="elevated"
+            @click="comfirmPurchase"
+            size="x-large"
+            color="#B7582A"
+          >
+            Check Out
+          </v-btn>
+        </div>
       </v-card-actions>
     </v-card>
     <!-- 購買規範說明 -->
@@ -139,6 +164,7 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
 import axios from "axios";
 import CtmizedPTable from "../../components/CtmizedPTableInCart.vue"; //../../components/CtmizedPTableInCart.vue
 
@@ -146,6 +172,7 @@ const apiurl = "https://localhost:7098/";
 const getAll = "api/TempOrderDetailsAPI";
 const deleteById = "api/TempOrderDetailsAPI";
 const postById = "api/TempOrderDetailsAPI";
+const router = useRouter();
 let memberIdTosql = 1;
 const employeeId = 1;
 
@@ -231,6 +258,7 @@ async function comfirmPurchase() {
       initV();
       //go next payment page
       alert(res.data);
+      router.push("/OrderSuccess");
       return res.data;
     }
   } catch (ex) {

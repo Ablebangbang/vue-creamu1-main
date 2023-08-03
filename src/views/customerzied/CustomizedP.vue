@@ -5,13 +5,7 @@
       <v-container>
         <v-row justify="center">
           <v-col cols="10">
-            <v-img
-              height="250"
-              cover
-              src="../../img/000.jpg"
-              margin-right="50"
-              margin-left="50"
-            >
+            <v-img cover margin-right="50" margin-left="50">
               <div padding="50">
                 <br />
                 <p class="text-center">
@@ -20,13 +14,13 @@
                   each body part. Take full control of the look and feel of your
                   model.
                 </p>
-                <br />
+
                 <p class="text-center">
                   Not only that, but you can also select the material that you
                   absolutely adore. Let your creativity shine as you explore
                   different materials to give your model that perfect touch.
                 </p>
-                <br />
+
                 <p class="text-center">
                   Unleash your imagination and create a truly unique and
                   personalized model. The possibilities are endless, so go ahead
