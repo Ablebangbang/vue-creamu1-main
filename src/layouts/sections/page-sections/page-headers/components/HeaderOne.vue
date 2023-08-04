@@ -4,7 +4,7 @@ import MaterialButton from "@/components/MaterialButton.vue";
 
 // image
 const bgImage =
-  "https://images.unsplash.com/photo-1520769945061-0a448c463865?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80";
+  "https://pgw.udn.com.tw/gw/photo.php?u=https://uc.udn.com.tw/photo/2022/12/26/realtime/19758719.jpg&x=0&y=0&sw=0&sh=0&sl=W&fw=800&exp=3600&w=930&nt=1";
 </script>
 <template>
   <header>
@@ -13,7 +13,7 @@ const bgImage =
     >
       <div class="container">
         <a class="navbar-brand text-white" href="javascript:;"
-          >Material Design</a
+          ></a
         >
         <button
           class="navbar-toggler"
@@ -29,16 +29,16 @@ const bgImage =
         <div class="collapse navbar-collapse" id="navbar-header-2">
           <ul class="navbar-nav mx-auto">
             <li class="nav-item">
-              <RouterLink class="nav-link text-white" to="#"> Home </RouterLink>
+              <RouterLink class="nav-link text-white" to="#"> 2023 </RouterLink>
             </li>
             <li class="nav-item">
               <RouterLink class="nav-link text-white" to="#">
-                About Us
+                /08
               </RouterLink>
             </li>
             <li class="nav-item">
               <RouterLink class="nav-link text-white" to="#">
-                Contact Us
+                /03
               </RouterLink>
             </li>
           </ul>
@@ -47,7 +47,7 @@ const bgImage =
             <li class="nav-item">
               <a
                 class="nav-link text-white"
-                href="https://twitter.com/CreativeTim"
+                href="https://twitter.com/"
               >
                 <i class="fab fa-twitter"></i>
               </a>
@@ -55,7 +55,7 @@ const bgImage =
             <li class="nav-item">
               <a
                 class="nav-link text-white mx-2"
-                href="https://www.facebook.com/CreativeTim"
+                href="https://www.facebook.com/"
               >
                 <i class="fab fa-facebook"></i>
               </a>
@@ -63,7 +63,7 @@ const bgImage =
             <li class="nav-item">
               <a
                 class="nav-link text-white"
-                href="https://www.instagram.com/CreativeTimOfficial"
+                href="https://www.instagram.com/"
               >
                 <i class="fab fa-instagram"></i>
               </a>
@@ -85,10 +85,9 @@ const bgImage =
           <div
             class="col-lg-6 col-md-7 d-flex justify-content-center flex-column"
           >
-            <h1 class="text-white mb-4">Material Kit</h1>
+            <h1 class="text-white mb-4">台灣特有貴重木出口新制</h1>
             <p class="text-white opacity-8 lead pe-5 me-5">
-              The time is now for it be okay to be great. People in this world
-              shun people for being nice.
+              本公司木材一律使用國外進口.
             </p>
             <div class="buttons">
               <MaterialButton color="white" class="mt-4"

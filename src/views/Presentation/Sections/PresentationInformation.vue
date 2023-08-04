@@ -23,7 +23,7 @@ import DefaultInfoCard from "../../../examples/cards/infoCards/DefaultInfoCard.v
               description="再不行動你將後悔莫及"
               :action="[
                 {
-                  route: './/sections/page-sections/hero-sections.html',
+                  route: 'http://localhost:3000/customized',
                   label: '馬上開始DIY',
                 },
               ]"
