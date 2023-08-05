@@ -2,9 +2,6 @@
     <br>
     <br>
     <div class="container ">
-        <p>
-            {{ props.va.name }}
-        </p>
         <!-- BACK TO PRODUCT LIST -->
         <div>
             <button class="btn btn-light" @click="backToPL" style="font-weight: bold; font-size: 36px;"><img
