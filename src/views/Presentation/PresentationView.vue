@@ -61,13 +61,13 @@ onUnmounted(() => {
             src: '../../../public/cycle/head1.png',
           },
           {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+            src: '../../../src/assets/img/cycle/head2.png',
           },
           {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+            src: '../../../src/assets/img/cycle/head3.png',
           },
           {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+            src: '../../../public/cycle/head1.png',
           },
         ]
         const items= [
@@ -75,13 +75,13 @@ onUnmounted(() => {
             src: '../../../public/cycle/body1.png',
           },
           {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+            src: '../../../src/assets/img/cycle/body2.png',
           },
           {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+            src: '../../../src/assets/img/cycle/body3.png',
           },
           {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+            src: '../../../src/assets/img/cycle/body3.png',
           },
         ]
         
@@ -253,6 +253,7 @@ onUnmounted(() => {
     <!-- --------------------------------------------- second-->
   <v-carousel show-arrows="hover"
   cycle
+  vertical-delimiters="left"
   interval="2000"
   height="400"
   progress="true"

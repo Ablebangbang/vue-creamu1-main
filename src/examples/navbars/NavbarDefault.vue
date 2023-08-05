@@ -113,7 +113,7 @@ watch(
           ? 'text-dark font-weight-bolder ms-sm-3'
           : 'text-white font-weight-bolder ms-sm-3'
       ]" :to="{ name: 'presentation' }" rel="tooltip" title="CreamU" data-placement="bottom">
-        <img src="src/assets/img/logo/CreamULT.png" alt="">
+        <img src="../../assets/img/logo/creamULT.png" alt="CreamU">
 
         CreamU
       </RouterLink>
@@ -121,7 +121,7 @@ watch(
         ? 'text-white'
         : 'font-weight-bolder ms-sm-3'
         " to="/" rel="tooltip" title="CreamU" data-placement="bottom">
-        <img src="src/assets/img/logo/CreamULT.png" alt="">
+        <img src="../../assets/img/logo/creamULT.png" alt="CreamU">
         CreamU
       </RouterLink>
       <a href="#" style="color:#e5d2ab; background-color: #768a3a;" class="btn btn-sm  mb-0 ms-auto d-lg-none d-block">Buy
