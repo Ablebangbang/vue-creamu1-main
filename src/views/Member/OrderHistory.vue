@@ -50,7 +50,7 @@
                 <hr />
                 <div class="col-4 d-flex justify-content-center align-items-center">
                   <!-- <img :src="`https://localhost:7098/imgs/${ordersDetail.productImage}`" /> -->
-                  <img :src="`https://localhost:7098/imgs/${ordersDetail.productImage}`" height="200" />
+                  <img :src="`https://creamuapit2.azurewebsites.net/imgs/${ordersDetail.productImage}`" height="200" />
                 </div>
                 <div class="col-6">
                   <p>產品名稱 : {{ ordersDetail.product }}</p>
@@ -87,7 +87,7 @@ const member = ref([]);
 const originalOrders = ref([]); // 新增 originalOrders 變數用於保存一開始載入的所有訂單資料
 const staDate = ref(new Date());
 const endDate = ref(new Date());
-const Address = "https://localhost:7098";
+const Address = "https://creamuapit2.azurewebsites.net";
 const id = localStorage.getItem('userId');
 const orders = ref([]);
 const ordersDetails = ref([]);

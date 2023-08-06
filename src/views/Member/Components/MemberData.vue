@@ -10,7 +10,7 @@
       </span>
     </button> -->
     <div class="image-container">
-      <img :src="`https://localhost:7098/imgs/${member.image}`" @click="openUploadModal" />
+      <img :src="`https://creamuapit2.azurewebsites.net/imgs/${member.image}`" @click="openUploadModal" />
       <div class="hover-image">
         <img type="button"
           src="https://png.pngtree.com/png-vector/20190725/ourmid/pngtree-vector-camera-icon-png-image_1576543.jpg"
@@ -63,7 +63,7 @@ import { ref, defineEmits } from "vue";
 const id = localStorage.getItem('userId');
 const showUploadModal = ref(false);
 const fileInput = ref(null);
-const Address = `https://localhost:7098`;
+const Address = `https://creamuapit2.azurewebsites.net`;
 const errorMessage = ref("");
 const previewImage = ref(null);
 const emits = defineEmits(["update"]); // 定義子元件可以發送的事件

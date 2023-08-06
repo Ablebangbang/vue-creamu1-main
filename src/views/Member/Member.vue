@@ -56,7 +56,7 @@ import { ref } from "vue";
 
 const id = localStorage.getItem('userId');
 const member = ref([]);
-const Address = "https://localhost:7098";
+const Address = "https://creamuapit2.azurewebsites.net";
 const loadMember = async () => {
   const res = await fetch(`${Address}/api/MembersAPI/${id}`);
   const datas = await res.json();

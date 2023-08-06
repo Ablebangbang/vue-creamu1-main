@@ -98,7 +98,7 @@
                             v-if="totalPages">Next</button>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
         <div v-else>
             <div class="container">
@@ -118,7 +118,7 @@ import axios from 'axios';
 import { useRouter } from 'vue-router';
 import { defineProps, defineEmits } from 'vue'
 
-const apiurl = "https://localhost:7098/";
+const apiurl = "https://creamuapit2.azurewebsites.net/";
 const getAll = "api/ProductsDisplayAPI";
 
 

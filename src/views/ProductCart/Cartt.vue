@@ -9,9 +9,7 @@
       <div class="col-md-10 mb-4">
         <div style="font-size: 32px">
           <span class="progress-icon" style="background-color: #e5d2ab">1</span>
-          <span class="progressbar-text" style="background-color: #e5d2ab"
-            >確認購物車</span
-          >
+          <span class="progressbar-text" style="background-color: #e5d2ab">確認購物車</span>
           <span class="progressbar-text"> > </span>
           <span class="progress-icon">2</span>
           <span class="progressbar-text">選擇取貨方式</span>
@@ -56,12 +54,7 @@
                 {{ i.subtotal }}
               </td>
               <td>
-                <v-btn
-                  :id="index"
-                  variant="text"
-                  color="#B7582A"
-                  @click="delTOD(i.id)"
-                >
+                <v-btn :id="index" variant="text" color="#B7582A" @click="delTOD(i.id)">
                   Delete
                 </v-btn>
               </td>
@@ -77,28 +70,15 @@
     </v-row>
     <v-row justify="end">
       <v-col cols="12" align="end">
-        <v-btn
-          href="http://localhost:3000/productList"
-          size="x-large"
-          color="#B7582A"
-          >Buy More Normal Product</v-btn
-        >
+        <v-btn href="http://localhost:3000/productList" size="x-large" color="#B7582A">Buy More Normal Product</v-btn>
       </v-col>
     </v-row>
 
-    <v-divider
-      :thickness="2"
-      color="#B7582A"
-      class="border-opacity-25"
-    ></v-divider>
+    <v-divider :thickness="2" color="#B7582A" class="border-opacity-25"></v-divider>
     <!-- 商品總價與次要選項 -->
 
     <CtmizedPTable @sendCPrice="childHandler" ref="childRef"></CtmizedPTable>
-    <v-divider
-      :thickness="2"
-      color="#B7582A"
-      class="border-opacity-100"
-    ></v-divider>
+    <v-divider :thickness="2" color="#B7582A" class="border-opacity-100"></v-divider>
     <v-card class="mx-auto" variant="tonal" color="#422e13">
       <v-card-item>
         <div>
@@ -116,12 +96,7 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn
-          variant="elevated"
-          @click="comfirmPurchase"
-          size="x-large"
-          color="#B7582A"
-        >
+        <v-btn variant="elevated" @click="comfirmPurchase" size="x-large" color="#B7582A">
           Check Out
         </v-btn>
       </v-card-actions>
@@ -142,14 +117,14 @@ import { ref, computed } from "vue";
 import axios from "axios";
 import CtmizedPTable from "../../components/CtmizedPTableInCart.vue"; //../../components/CtmizedPTableInCart.vue
 
-const apiurl = "https://localhost:7098/";
+const apiurl = "https://creamuapit2.azurewebsites.net/";
 const getAll = "api/TempOrderDetailsAPI";
 const deleteById = "api/TempOrderDetailsAPI";
 const postById = "api/TempOrderDetailsAPI";
 let memberIdTosql = 1;
 const employeeId = 1;
 
-const Address = "https://localhost:7098";
+const Address = "creamuapit2.azurewebsites.net";
 //temporderdata
 const todData = ref([]);
 

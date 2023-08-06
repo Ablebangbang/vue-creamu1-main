@@ -1,12 +1,7 @@
 <template>
   <h2>Product Review</h2>
   <v-container>
-    <v-card
-      class="d-flex flex-column mx-auto py-8"
-      elevation="10"
-      height="500"
-      width="360"
-    >
+    <v-card class="d-flex flex-column mx-auto py-8" elevation="10" height="500" width="360">
       <div class="d-flex justify-center mt-auto text-h5">Rating overview</div>
 
       <div class="d-flex align-center flex-column my-auto">
@@ -15,27 +10,14 @@
           <span class="text-h6 ml-n3">/5</span>
         </div>
 
-        <v-rating
-          :model-value="3.5"
-          color="yellow-darken-3"
-          half-increments
-        ></v-rating>
+        <v-rating :model-value="3.5" color="yellow-darken-3" half-increments></v-rating>
         <div class="px-3">3,360 ratings</div>
       </div>
 
-      <v-list
-        bg-color="transparent"
-        class="d-flex flex-column-reverse"
-        density="compact"
-      >
+      <v-list bg-color="transparent" class="d-flex flex-column-reverse" density="compact">
         <v-list-item v-for="(rating, i) in 5" :key="i">
-          <v-progress-linear
-            :model-value="rating * 15"
-            class="mx-n5"
-            color="yellow-darken-3"
-            height="20"
-            rounded
-          ></v-progress-linear>
+          <v-progress-linear :model-value="rating * 15" class="mx-n5" color="yellow-darken-3" height="20"
+            rounded></v-progress-linear>
 
           <template v-slot:prepend>
             <span>{{ rating }}</span>
@@ -72,14 +54,9 @@
       <v-card width="75%">
         <v-card-item>
           <div class="text-right">#1</div>
-          <v-img
-            src="https://localhost:7098/imgs/messageImg/04.jpg"
-            height="200px"
-          ></v-img>
+          <v-img src="https://creamuapit2.azurewebsites.net/imgs/messageImg/04.jpg" height="200px"></v-img>
           <v-card-title>User comment 使用者1號</v-card-title>
-          <v-card-text
-            >留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言</v-card-text
-          >
+          <v-card-text>留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言留言</v-card-text>
 
           <v-card-text class="text-right"> 2023-07-13 14:06:00 </v-card-text>
 

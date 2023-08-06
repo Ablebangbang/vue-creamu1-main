@@ -64,7 +64,7 @@ import { ref, computed } from 'vue';
 import axios from 'axios';
 import { defineEmits, defineProps } from 'vue';
 
-const apiurl = "https://localhost:7098/";
+const apiurl = "https://creamuapit2.azurewebsites.net/";
 const getAll = "api/ProductsDisplayAPI/id";
 const postToCartAPI = "api/ProductsDisplayAPI";
 // 接收父组件传递过来的值
