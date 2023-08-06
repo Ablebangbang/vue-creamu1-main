@@ -273,7 +273,7 @@ onUnmounted(() => {
           <h3>本網站僅供資展協會133期作業展示使用，如有任何侵權問題，歡迎告知以下任意人員</h3>
           <div class="d-flex justify-content-center mt-3 flex-wrap">
             <a
-              href="http://localhost:3000/"
+              href="http://20.63.137.94/"
               data-bs-toggle="tooltip"
               data-bs-placement="bottom"
               title="1號"
@@ -300,7 +300,7 @@ onUnmounted(() => {
               />
             </a>
             <a
-              href="http://localhost:3000/"
+              href="http://20.63.137.94/"
               class="mx-3"
               data-bs-toggle="tooltip"
               data-bs-placement="bottom"
@@ -328,7 +328,7 @@ onUnmounted(() => {
               />
             </a>
             <a
-              href="http://localhost:3000/"
+              href="http://20.63.137.94/"
               class="mx-3"
               data-bs-toggle="tooltip"
               data-bs-placement="bottom"
@@ -342,7 +342,7 @@ onUnmounted(() => {
               />
             </a>
             <a
-              class="http://localhost:3000/"
+              class="http://20.63.137.94/"
               href="#"
               data-bs-toggle="tooltip"
               data-bs-placement="bottom"
