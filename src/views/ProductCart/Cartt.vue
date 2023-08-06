@@ -101,6 +101,37 @@
         </v-btn>
       </v-card-actions>
     </v-card>
+
+    <v-card>
+      <form id="form" name="form" method="POST" action="https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5">
+        <div v-for="(value, key) in ecpaypaymentinfo" :key="key">
+          <input :type="Text" :id="key" v-model="ecpaypaymentinfo[key]" hidden />
+        </div>
+        <button type="submit">ToECpay</button>
+      </form>
+    </v-card>
+
+    <!-- <form id="form" name="form" method="POST" action="https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5"> -->
+    <!--step2 : 收到後端的值印出來-->
+    <!-- <div v-for="i in ecpaypaymentinfo">
+        <input type="text" :name=ik value={{ i.value }} hidden/>
+
+      </div>
+      <input type="text" name="MerchantTradeDate" value={{ ecpaypaymentinfo.MerchantTradeDate }} /><br />
+      <input type="text" name="PaymentType" value={{ ecpaypaymentinfo.PaymentType }} /><br />
+      <input type="text" name="TotalAmount" value={{ ecpaypaymentinfo.TotalAmount }} /><br />
+      <input type="text" name="TradeDesc" value={{ ecpaypaymentinfo.MerchantTradeNo }} /><br />
+      <input type="text" name="MerchantTradeNo" value={{ ecpaypaymentinfo.MerchantTradeNo }} /><br />
+      <input type="text" name="MerchantTradeNo" value={{ ecpaypaymentinfo.MerchantTradeNo }} /><br />
+      <input type="text" name="MerchantTradeNo" value={{ ecpaypaymentinfo.MerchantTradeNo }} /><br />
+      <input type="text" name="MerchantTradeNo" value={{ ecpaypaymentinfo.MerchantTradeNo }} /><br />
+      <input type="text" name="MerchantTradeNo" value={{ ecpaypaymentinfo.MerchantTradeNo }} /><br />
+      <input type="text" name="MerchantTradeNo" value={{ ecpaypaymentinfo.MerchantTradeNo }} /><br />
+      <input type="text" name="MerchantTradeNo" value={{ ecpaypaymentinfo.MerchantTradeNo }} /><br />
+      <button type="submit" id="checkoutBtn">送出</button>
+    </form> -->
+
+
     <!-- 購買規範說明 -->
     <div>
       <br />
@@ -117,14 +148,16 @@ import { ref, computed } from "vue";
 import axios from "axios";
 import CtmizedPTable from "../../components/CtmizedPTableInCart.vue"; //../../components/CtmizedPTableInCart.vue
 
-const apiurl = "https://creamuapit2.azurewebsites.net/";
+// const { createHash } = require('crypto');
+
+const apiurl = "https://localhost:7098/";
 const getAll = "api/TempOrderDetailsAPI";
 const deleteById = "api/TempOrderDetailsAPI";
 const postById = "api/TempOrderDetailsAPI";
 let memberIdTosql = 1;
 const employeeId = 1;
 
-const Address = "creamuapit2.azurewebsites.net";
+const Address = "https://localhost:7098";
 //temporderdata
 const todData = ref([]);
 
@@ -138,6 +171,9 @@ const childRef = ref(null);
 const childHandler = (CPrice) => {
   CtotalPrice.value = CPrice;
 };
+
+//ecpay attribute
+const ecpaypaymentinfo = ref([]);
 
 //由父組件呼叫子組建的function()
 function customizedPCheckOut() {
@@ -199,7 +235,15 @@ async function comfirmPurchase() {
       totalp: totalPrice.value + CtotalPrice.value,
     });
 
+    //sent customized product data
     customizedPCheckOut();
+
+
+    //ecpay process
+    const toecpay = totalPrice.value + CtotalPrice.value;
+    ecpayactive(toecpay);
+
+    //error process
     if (res.data === "None Data") {
       return "None Data";
     } else {
@@ -212,6 +256,122 @@ async function comfirmPurchase() {
     alert(ex + memberIdTosql + totalPrice.value);
   }
 }
+
+//ECPAY
+async function ecpayactive(ecpaytotalprice) {
+  // alert("ecactive")
+  let purchaseOrderId = _uuid().replace("-", "");
+  alert("sent _uuid");
+  purchaseOrderId = purchaseOrderId.substring(0, 20);
+  alert("cut uuid to 20")
+  // let myapi = "https://localhost:7098/";
+
+  ecpaypaymentinfo.value = {
+    MerchantTradeNo: purchaseOrderId,
+    MerchantTradeDate: forEcpayGetDate(),
+    //aio
+    PaymentType: "aio",
+
+    TotalAmount: ecpaytotalprice,
+    TradeDesc: "無",
+    ItemName: "CreamU Product",
+    ExpireDate: "3",
+    CustomField1: "",
+    CustomField2: "",
+    CustomField3: "",
+    CustomField4: "",
+    ReturnURL: "https://www.youtube.com/",
+    //use new merchant id or old id    new 3002607    old 2000132
+    MerchantID: "3002607",
+    EncryptType: 1,
+    //aio
+    ClientBackURL: "https://www.youtube.com/",
+    //not necessary
+    //IgnorePayment: "GooglePay#WebATM#CVS#BARCODE",
+    ChoosePayment: "ALL",
+    CheckMacValue: ""
+  };
+  //check
+  alert("post yet");
+
+  //add cryto
+  ecpaypaymentinfo.value.CheckMacValue = await getCheckMacValue(ecpaypaymentinfo);
+  alert("get checkmac cryto")
+  //got to ecpay page
+  // const ecres = await axios.post(`https://cors-anywhere.herokuapp.com/https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5`,
+  //   ecpaypaymentinfo, {
+  //   headers: {
+  //     'Content-Type': 'application/x-www-form-urlencoded'
+  //   }
+  // });
+  alert("post finish");
+}
+
+
+//ecpay machin number
+function _uuid() {
+  var d = Date.now();
+  if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
+    d += performance.now(); //use high-precision timer if available
+  }
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = (d + Math.random() * 16) % 16 | 0;
+    d = Math.floor(d / 16);
+    return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+  });
+}
+
+//add date format
+function forEcpayGetDate() {
+
+  // Create a new Date object (current date and time)
+  const currentDate = new Date();
+
+  // Get individual components of the date
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+  const day = String(currentDate.getDate()).padStart(2, '0');
+  const hours = String(currentDate.getHours()).padStart(2, '0');
+  const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+  const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+
+  // Format the date as "yyyy/MM/dd HH:mm:ss"
+  const formattedDate = `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
+  alert("im date" + formattedDate);
+  return formattedDate;
+}
+
+//hash cryto
+async function getCheckMacValue(order) {
+
+  const orderedKeys = Object.keys(order).sort();
+  const param = orderedKeys.map(key => `${key}=${order[key]}`);
+  const checkValue = param.join('&');
+  //use new hash key or iv
+  //new key pwFHCqoQZGmho4w6 iv EkRm7iFT261dpevs
+  //old key 5294y06JbISpM5x9 iv v77hoKGq4kWxNNIS
+  const hashKey = "pwFHCqoQZGmho4w6";
+  const hashIV = "EkRm7iFT261dpevs";
+  let combinedValue = `HashKey=${hashKey}&${checkValue}&HashIV=${hashIV}`;
+  combinedValue = encodeURIComponent(combinedValue).toLowerCase();
+  const sha256Value = await getSHA256(combinedValue);
+  alert(sha256Value.toUpperCase());
+  return sha256Value.toUpperCase();
+}
+
+//sha256 crypto solution
+async function getSHA256(value) {
+  alert("in 256")
+  const encoder = new TextEncoder();
+  const data = encoder.encode(value);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+  alert("crypto finish");
+  return hashHex;
+}
+
+
 
 initV();
 </script>
