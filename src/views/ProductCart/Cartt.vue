@@ -30,7 +30,6 @@
 
   <!-- 商品細節 -->
   <v-container class="custom-container">
-    <h3>Normal Product List</h3>
     <v-row justify="center">
       <v-col>
         <v-table class="table">
@@ -64,7 +63,7 @@
       </v-col>
     </v-row>
     <v-row justify="end">
-      <v-col cols="auto">
+      <v-col cols="10" align="end">
         <h5>Normal Product List Total: {{ totalPrice }}</h5>
       </v-col>
     </v-row>
@@ -82,10 +81,10 @@
     <v-card class="mx-auto" variant="tonal" color="#422e13">
       <v-card-item>
         <div>
-          <div class="text-overline text-right mb-1">
+          <div class="text-h7 text-right mb-1">
             Normal Product List Total: {{ totalPrice }}
           </div>
-          <div class="text-overline text-right mb-1">
+          <div class="text-h7 text-right mb-1">
             Customized Product List Total: {{ CtotalPrice }}
           </div>
           <div class="text-h6 text-right mb-1">
@@ -145,6 +144,7 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
 import axios from "axios";
 import CtmizedPTable from "../../components/CtmizedPTableInCart.vue"; //../../components/CtmizedPTableInCart.vue
 
@@ -154,6 +154,7 @@ const apiurl = "https://creamuapit2.azurewebsites.net/";
 const getAll = "api/TempOrderDetailsAPI";
 const deleteById = "api/TempOrderDetailsAPI";
 const postById = "api/TempOrderDetailsAPI";
+const router = useRouter();
 let memberIdTosql = 1;
 const employeeId = 1;
 
@@ -250,6 +251,7 @@ async function comfirmPurchase() {
       initV();
       //go next payment page
       alert(res.data);
+      router.push("/OrderSuccess");
       return res.data;
     }
   } catch (ex) {
@@ -261,9 +263,9 @@ async function comfirmPurchase() {
 async function ecpayactive(ecpaytotalprice) {
   // alert("ecactive")
   let purchaseOrderId = _uuid().replace("-", "");
-  alert("sent _uuid");
+
   purchaseOrderId = purchaseOrderId.substring(0, 20);
-  alert("cut uuid to 20")
+
   // let myapi = "https://localhost:7098/";
 
   ecpaypaymentinfo.value = {
@@ -292,11 +294,10 @@ async function ecpayactive(ecpaytotalprice) {
     CheckMacValue: ""
   };
   //check
-  alert("post yet");
 
   //add cryto
   ecpaypaymentinfo.value.CheckMacValue = await getCheckMacValue(ecpaypaymentinfo);
-  alert("get checkmac cryto")
+
   //got to ecpay page
   // const ecres = await axios.post(`https://cors-anywhere.herokuapp.com/https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5`,
   //   ecpaypaymentinfo, {
@@ -304,7 +305,6 @@ async function ecpayactive(ecpaytotalprice) {
   //     'Content-Type': 'application/x-www-form-urlencoded'
   //   }
   // });
-  alert("post finish");
 }
 
 
@@ -337,7 +337,7 @@ function forEcpayGetDate() {
 
   // Format the date as "yyyy/MM/dd HH:mm:ss"
   const formattedDate = `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
-  alert("im date" + formattedDate);
+
   return formattedDate;
 }
 
@@ -355,19 +355,19 @@ async function getCheckMacValue(order) {
   let combinedValue = `HashKey=${hashKey}&${checkValue}&HashIV=${hashIV}`;
   combinedValue = encodeURIComponent(combinedValue).toLowerCase();
   const sha256Value = await getSHA256(combinedValue);
-  alert(sha256Value.toUpperCase());
+
   return sha256Value.toUpperCase();
 }
 
 //sha256 crypto solution
 async function getSHA256(value) {
-  alert("in 256")
+
   const encoder = new TextEncoder();
   const data = encoder.encode(value);
   const hashBuffer = await crypto.subtle.digest('SHA-256', data);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
   const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-  alert("crypto finish");
+
   return hashHex;
 }
 
