@@ -138,7 +138,7 @@
       <v-btn
         size="x-large"
         color="#e5d2ab"
-        href="http://20.63.137.94/cartDetailDisplay"
+        href="http://localhost:3000/cartDetailDisplay"
         >Go to Cart</v-btn
       >
     </v-col>
@@ -157,7 +157,7 @@ import { ref } from "vue";
 
 const components = [];
 
-let routerport = "http://creamuapit2.azurewebsites.net/";
+let routerport = "http://localhost:7098/";
 
 export default {
   data() {

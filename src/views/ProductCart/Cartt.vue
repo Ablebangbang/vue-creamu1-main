@@ -69,7 +69,7 @@
     </v-row>
     <v-row justify="end">
       <v-col cols="12" align="end">
-        <v-btn href="http://20.63.137.94/productList" size="x-large" color="#B7582A">Buy More Normal Product</v-btn>
+        <v-btn href="http://localhost:3000/productList" size="x-large" color="#B7582A">Buy More Normal Product</v-btn>
       </v-col>
     </v-row>
 
@@ -150,7 +150,7 @@ import CtmizedPTable from "../../components/CtmizedPTableInCart.vue"; //../../co
 
 // const { createHash } = require('crypto');
 
-const apiurl = "https://creamuapit2.azurewebsites.net/";
+const apiurl = "https://localhost:7098/";
 const getAll = "api/TempOrderDetailsAPI";
 const deleteById = "api/TempOrderDetailsAPI";
 const postById = "api/TempOrderDetailsAPI";
@@ -158,7 +158,7 @@ const router = useRouter();
 let memberIdTosql = 1;
 const employeeId = 1;
 
-const Address = "https://creamuapit2.azurewebsites.net";
+const Address = "https://localhost:7098";
 //temporderdata
 const todData = ref([]);
 

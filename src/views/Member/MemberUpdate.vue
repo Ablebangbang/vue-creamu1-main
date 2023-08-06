@@ -124,7 +124,7 @@ const telephoneRules = [
   },
 ]
 const id = localStorage.getItem('userId'); // 暫時設定的變數
-const Address = "https://creamuapit2.azurewebsites.net";
+const Address = "https://localhost:7098";
 const member = ref([]);
 
 const loadMember = async () => {

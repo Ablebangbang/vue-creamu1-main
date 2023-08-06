@@ -118,7 +118,7 @@ import axios from 'axios';
 import { useRouter } from 'vue-router';
 import { defineProps, defineEmits } from 'vue'
 
-const apiurl = "https://creamuapit2.azurewebsites.net/";
+const apiurl = "https://localhost:7098/";
 const getAll = "api/ProductsDisplayAPI";
 
 
