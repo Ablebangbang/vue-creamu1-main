@@ -6,7 +6,7 @@
           <v-row>
             <v-col cols="6">
               <v-img
-                src="https://localhost:7098/imgs/messageImg/26.jpg"
+                src="http://creamuapit2.azurewebsites.net/imgs/messageImg/26.jpg"
                 width="100%"
                 class="bg-grey-lighten-2"
               ></v-img>
@@ -44,7 +44,7 @@
             </v-col>
             <v-col cols="6">
               <v-img
-                src="https://localhost:7098/imgs/messageImg/31.jpg"
+                src="http://creamuapit2.azurewebsites.net/imgs/messageImg/31.jpg"
                 width="100%"
                 class="bg-grey-lighten-2"
               ></v-img>
@@ -58,7 +58,7 @@
           <v-row>
             <v-col cols="6">
               <v-img
-                src="https://localhost:7098/imgs/messageImg/woodDemo.png"
+                src="http://creamuapit2.azurewebsites.net/imgs/messageImg/woodDemo.png"
                 width="100%"
                 class="bg-grey-lighten-2"
                 cover

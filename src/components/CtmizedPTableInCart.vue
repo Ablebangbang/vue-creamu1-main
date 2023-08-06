@@ -12,7 +12,7 @@
           <br />
           <br />
           <v-btn
-            href="http://localhost:3000/customized"
+            href="http://20.63.137.94/customized"
             prepend-icon="mdi-cart-arrow-down"
             size="x-large"
             color="#B7582A"
@@ -164,7 +164,7 @@
     <v-col cols="6" align="end">
       <v-btn
         v-if="products.length != 0"
-        href="http://localhost:3000/customized"
+        href="http://20.63.137.94/customized"
         size="x-large"
         color="#B7582A"
         >Buy More Customized Product</v-btn
@@ -175,7 +175,7 @@
 </template>
 
 <script>
-let routerport = "https://localhost:7098/";
+let routerport = "http://creamuapit2.azurewebsites.net/";
 import { defineEmits } from "vue";
 
 export default {

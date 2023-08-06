@@ -30,7 +30,7 @@
                     <h6 style="color: brown;" v-if="Password !== ConfirmPassword" class="error-message">確認密碼不一致</h6>
                     <div class="links">
                         <a href="#" hidden>Forgot Password</a>
-                        <a href="http://localhost:3000/pages/landing-pages/basic"
+                        <a href="http://20.63.137.94/pages/landing-pages/basic"
                             :class="{ 'is-invalid': !isPasswordValid || Password !== ConfirmPassword }">登入</a>
                     </div>
                     <input type="button" value="註冊" @click.prevent="CreateMember">
